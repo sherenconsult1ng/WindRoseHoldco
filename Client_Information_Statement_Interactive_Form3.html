@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<!-- saved from url=(0094)file:///Users/Billy/Desktop/AI/Output/Work/Client_Information_Statement_Interactive_Form2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Information Statement 客户信息声明</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="file:///Users/Billy/Desktop/AI/Output/Work/5.%20Client%20Information%20Statement/Client_Information_Statement_Interactive_Form2_files/css2" rel="stylesheet">
+<style>
+:root{
+  --ink:#12203A;
+  --navy:#1E3A5F;
+  --navy-deep:#0B1A2E;
+  --paper:#F5F6F3;
+  --card:#FFFFFF;
+  --line:#D9DEE4;
+  --line-soft:#E9ECEF;
+  --gold:#A9782F;
+  --gold-soft:#EFE3CB;
+  --red:#B3261E;
+  --green:#1F7A5C;
+  --slate:#5B6B7F;
+  --slate-soft:#8592A3;
+  --radius:2px;
+  --serif:'Noto Serif SC','Songti SC','Times New Roman',serif;
+  --sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px);
+  background-size: 100% 32px;
+  background-attachment:local;
+  min-height:100vh;
+}
+.hidden{display:none !important;}
+a{color:inherit;}
+
+/* ---------- Topbar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 28px;
+  background:var(--navy-deep);
+  color:#fff;
+  border-bottom:3px solid var(--gold);
+}
+.brand{display:flex; align-items:center; gap:12px;}
+.brand .seal{width:34px;height:34px;flex:none;}
+.brand-text .en{font-family:var(--serif); font-size:17px; font-weight:700; letter-spacing:.3px;}
+.brand-text .zh{font-size:11px; color:#C9D3DE; letter-spacing:2px;}
+.toolbar{display:flex; gap:8px; flex-wrap:wrap;}
+.btn{
+  font-family:var(--sans); font-size:13px; font-weight:600;
+  border:1px solid var(--line); background:#fff; color:var(--ink);
+  padding:9px 14px; border-radius:var(--radius); cursor:pointer;
+  transition:all .15s ease; letter-spacing:.2px;
+}
+.btn:hover{border-color:var(--navy); background:#F2F4F6;}
+.btn-primary{background:var(--navy); color:#fff; border-color:var(--navy);}
+.btn-primary:hover{background:var(--gold); border-color:var(--gold); color:#1a1305;}
+.btn-gold{background:var(--gold); border-color:var(--gold); color:#fff;}
+.btn-gold:hover{background:#8f6427;}
+.btn-ghost{background:transparent; color:#fff; border-color:rgba(255,255,255,.35);}
+.btn-ghost:hover{background:rgba(255,255,255,.1); border-color:#fff;}
+.btn-danger{color:var(--red); border-color:#E7C6C3;}
+.btn-danger:hover{background:#FBEDEC;}
+.btn-sm{padding:6px 10px; font-size:12px;}
+
+/* ---------- Layout ---------- */
+main{max-width:1080px; margin:0 auto; padding:36px 22px 90px;}
+.card{background:var(--card); border:1px solid var(--line); box-shadow:0 1px 3px rgba(18,32,58,.06);}
+
+/* ---------- Landing ---------- */
+.hero{
+  text-align:center; padding:64px 20px 40px;
+}
+.hero .seal-lg{width:88px;height:88px;margin:0 auto 22px;}
+.hero h1{font-family:var(--serif); font-size:34px; margin:0 0 6px; letter-spacing:.2px;}
+.hero h1 .zh{display:block; font-size:20px; color:var(--slate); font-weight:500; margin-top:6px;}
+.hero p.sub{color:var(--slate); font-size:14.5px; max-width:560px; margin:14px auto 0; line-height:1.7;}
+.choice-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:22px; max-width:820px; margin:44px auto 0; padding:0 20px;
+}
+@media(max-width:680px){.choice-grid{grid-template-columns:1fr;}}
+.choice-card{
+  background:var(--card); border:1px solid var(--line); padding:34px 28px; text-align:left;
+  cursor:pointer; transition:all .18s ease; position:relative; overflow:hidden;
+}
+.choice-card::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--gold);
+  transform:scaleY(0); transform-origin:bottom; transition:transform .2s ease;
+}
+.choice-card:hover{box-shadow:0 10px 26px rgba(18,32,58,.10); transform:translateY(-2px); border-color:var(--navy);}
+.choice-card:hover::before{transform:scaleY(1);}
+.choice-card .tag{font-size:11px; letter-spacing:2px; color:var(--gold); font-weight:700; text-transform:uppercase;}
+.choice-card h2{font-family:var(--serif); font-size:22px; margin:10px 0 4px;}
+.choice-card h2 .zh{display:block; font-size:15px; color:var(--slate); font-weight:500;}
+.choice-card p{font-size:13.5px; color:var(--slate); line-height:1.6; margin:10px 0 0;}
+.choice-card .go{margin-top:18px; font-size:13px; font-weight:700; color:var(--navy); display:flex; align-items:center; gap:6px;}
+.choice-card:hover .go{color:var(--gold);}
+
+/* ---------- Document header ---------- */
+.doc-head{
+  padding:26px 30px; border-bottom:1px solid var(--line);
+  display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;
+}
+.doc-head h1{font-family:var(--serif); font-size:24px; margin:0;}
+.doc-head h1 .zh{display:block; font-size:15px; color:var(--slate); font-weight:500; margin-top:3px;}
+.doc-meta{font-size:12px; color:var(--slate-soft); text-align:right; line-height:1.6;}
+.progress-note{font-size:12.5px; color:var(--slate); background:var(--gold-soft); border:1px solid #E3D2AA; padding:8px 14px; margin:0 30px 0; border-radius:var(--radius);}
+
+/* ---------- Sections ---------- */
+.section{padding:26px 30px; border-bottom:1px solid var(--line);}
+.section:last-child{border-bottom:none;}
+.section-head{display:flex; align-items:baseline; gap:10px; margin-bottom:16px;}
+.section-badge{
+  font-family:var(--serif); font-weight:700; font-size:12px; color:#fff;
+  background:var(--navy); padding:3px 9px; letter-spacing:1px;
+}
+.section-head h3{font-family:var(--serif); font-size:17px; margin:0; font-weight:700;}
+.section-head h3 .zh{color:var(--slate); font-weight:500; font-size:14px; margin-left:6px;}
+.section-desc{font-size:12.5px; color:var(--slate); font-style:italic; margin:-8px 0 16px;}
+.info-box{
+  background:#F7F8F5; border:1px solid var(--line-soft); padding:14px 16px; font-size:12.5px;
+  color:var(--slate); line-height:1.65; margin-bottom:16px;
+}
+.info-box .zh{display:block; margin-top:6px; color:var(--slate-soft);}
+
+.grid{display:grid; grid-template-columns:repeat(12,1fr); gap:16px 18px;}
+@media(max-width:640px){.grid{grid-template-columns:1fr;}}
+.field{grid-column:span 4; display:flex; flex-direction:column; gap:6px; min-width:0;}
+.span-3{grid-column:span 3;} .span-4{grid-column:span 4;} .span-6{grid-column:span 6;}
+.span-8{grid-column:span 8;} .span-12{grid-column:span 12;}
+@media(max-width:640px){.field{grid-column:span 1 !important;}}
+
+.field label{font-size:12.5px; font-weight:600; color:var(--ink); line-height:1.4;}
+.field label .zh{font-weight:500; color:var(--slate); margin-left:3px;}
+.req{color:var(--red); margin-left:2px;}
+
+input[type=text], input[type=number], input[type=date], input[type=email], input[type=tel], select, textarea{
+  font-family:var(--sans); font-size:13.5px; color:var(--ink);
+  padding:9px 10px; border:1px solid var(--line); border-radius:var(--radius);
+  background:#fff; width:100%;
+}
+select[multiple]{padding:4px;}
+select[multiple] option{padding:5px 8px;}
+textarea{resize:vertical; min-height:56px;}
+input:focus, select:focus, textarea:focus{
+  outline:none; border-color:var(--navy); box-shadow:0 0 0 3px rgba(30,58,95,.12);
+}
+input:invalid:not(:placeholder-shown){border-color:var(--red);}
+.hint{font-size:11px; color:var(--slate-soft);}
+.other-box{margin-top:6px;}
+
+.choice-group{display:flex; flex-wrap:wrap; gap:8px 18px; padding:2px 0;}
+.choice{display:flex; align-items:center; gap:6px; font-size:13px; color:var(--ink); cursor:pointer; font-weight:400;}
+.choice input[type=radio], .choice input[type=checkbox]{width:15px; height:15px; accent-color:var(--navy); cursor:pointer; margin:0;}
+.other-inline{margin-left:4px; padding:4px 8px; font-size:12.5px; width:180px; border:1px solid var(--line); border-radius:var(--radius);}
+
+/* checkbox-list rendered as multiselect helper text */
+.multi-hint{font-size:10.5px; color:var(--slate-soft); margin-top:2px;}
+
+/* repeatable blocks */
+.repeat-block{
+  border:1px solid var(--line-soft); background:#FBFBFA; padding:18px 18px 6px; margin-bottom:14px; position:relative;
+}
+.repeat-block .repeat-title{font-size:12px; font-weight:700; color:var(--navy); letter-spacing:.5px; text-transform:uppercase; margin-bottom:10px;}
+.remove-btn{position:absolute; top:12px; right:12px;}
+
+.owner-block{border:1px solid var(--gold); background:#FEFCF7; margin-bottom:20px;}
+.owner-block > .owner-head{
+  background:var(--gold-soft); padding:10px 18px; font-family:var(--serif); font-weight:700; font-size:14px; color:#5c4318;
+  display:flex; justify-content:space-between; align-items:center;
+}
+
+.add-row-btn{margin-top:4px;}
+
+/* toolbar row under section for RM sign */
+.sig-wrap{border:1px solid var(--line); background:#fff; display:inline-block;}
+canvas.sig-pad{display:block; touch-action:none; cursor:crosshair; background:#fff;}
+.sig-actions{margin-top:8px; display:flex; gap:8px; align-items:center;}
+.sig-label{font-size:11px; color:var(--slate-soft);}
+
+/* bottom action bar */
+.action-bar{
+  padding:22px 30px 30px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+}
+.validate-msg{font-size:12.5px; font-weight:600;}
+.validate-msg.ok{color:var(--green);}
+.validate-msg.err{color:var(--red);}
+
+/* toast */
+#toast{
+  position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--navy-deep); color:#fff; padding:12px 20px; font-size:13px; border-radius:2px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25); opacity:0; pointer-events:none; transition:all .25s ease; z-index:200;
+}
+#toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+footer.foot{max-width:1080px; margin:0 auto; padding:0 22px 40px; font-size:11px; color:var(--slate-soft); text-align:center;}
+
+/* ---------- Print ---------- */
+@media print{
+  .topbar, .no-print, .choice-grid, .hero, footer.foot{display:none !important;}
+  body{background:#fff;}
+  main{padding:0; max-width:100%;}
+  .card{box-shadow:none; border:none;}
+  .section{break-inside:avoid; padding:14px 4px;}
+  select[multiple]{border:none;}
+  input,select,textarea{border:1px solid #999;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    
+    <div class="brand-text">
+      <div class="en">xyz Asset Management Limited (CE No.: FDS123)</div>
+      <div class="en">Client Information Statement</div><div class="zh">客户信息声明</div>
+    </div>
+  </div>
+  <div class="toolbar no-print" id="toolbar">
+    <button class="btn btn-ghost btn-sm" onclick="goHome()">⟵ Start over 重新开始</button>
+    <button class="btn btn-sm" onclick="checkForm()">Check required fields 检查必填栏</button>
+    <button class="btn btn-primary btn-sm" onclick="exportPDF()">⬇ PDF</button>
+    <button class="btn btn-sm" onclick="exportText()">⬇ Text 文本</button>
+    <button class="btn btn-gold btn-sm" onclick="exportHTML()">⬇ Save as HTML 另存为HTML</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- ================= LANDING ================= -->
+  <section id="landing" class="hidden">
+    <div class="hero">
+      
+      <h1>Client Information Statement<span class="zh">客户信息声明</span></h1>
+      <p class="sub">Select the account type to begin. Individual clients complete the Individual form; entity clients complete the Entity form, then one Individual form per beneficial owner.<br>请选择账户类型以开始填写。个人客户请填写「个人」表格；法人实体客户请先填写「实体」表格，再为每位受益人填写一份「个人」表格。</p>
+    </div>
+
+    <div class="choice-grid">
+      <div class="choice-card" onclick="startIndividual()">
+        <div class="tag">Individual / Joint</div>
+        <h2>Individual Client<span class="zh">个人客户</span></h2>
+        <p>For individual accounts, joint accounts (connected persons), or a standalone beneficial owner submission.</p>
+        <div class="go">Start Individual form →</div>
+      </div>
+      <div class="choice-card" onclick="startEntity()">
+        <div class="tag">Corporate / Trust</div>
+        <h2>Entity Client<span class="zh">法人实体客户</span></h2>
+        <p>For companies, partnerships and trusts. You will add director details and one Individual form per beneficial owner.</p>
+        <div class="go">Start Entity form →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INDIVIDUAL SCREEN ================= -->
+  <section id="individualScreen" class="hidden">
+    <div class="card">
+      <div class="doc-head">
+        <h1>Client Information Statement — Individual<span class="zh">客户信息声明（个人）</span></h1>
+        <div class="doc-meta">Form ref: CIS-IND<br>表格编号：CIS-IND</div>
+      </div>
+      <form id="individualForm" novalidate="" data-rendered="true"><div class="section"><div class="grid"><div class="field span-4" data-label="Account Type / 账户类型"><label for="p1_accountType">Account Type <span class="zh">账户类型</span><span class="req">*</span></label><select id="p1_accountType" name="p1_accountType" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Individual Account 个人账户">Individual Account 个人账户</option><option value="Joint Account (Connected Person) 联名账户（关联人）">Joint Account (Connected Person) 联名账户（关联人）</option><option value="Beneficial Owner 法人实体受益人">Beneficial Owner 法人实体受益人</option></select></div></div></div><div class="section"><div class="section-head"><span class="section-badge">1</span><h3>Personal Particulars<span class="zh">个人资料</span></h3></div><div class="grid"><div class="field span-4" data-label="Name (Chinese) / 中文姓名"><label for="p1_nameChinese">Name (Chinese) <span class="zh">中文姓名</span><span class="req">*</span></label><input type="text" id="p1_nameChinese" name="p1_nameChinese" required="" placeholder=""></div><div class="field span-4" data-label="Surname / 英文姓氏"><label for="p1_surname">Surname <span class="zh">英文姓氏</span><span class="req">*</span></label><input type="text" id="p1_surname" name="p1_surname" required="" placeholder=""></div><div class="field span-4" data-label="Given Names / 英文名字"><label for="p1_givenNames">Given Names <span class="zh">英文名字</span><span class="req">*</span></label><input type="text" id="p1_givenNames" name="p1_givenNames" required="" placeholder=""></div></div><div class="grid"><div class="field span-4" data-label="Date of Birth / 出生日期"><label for="p1_dob">Date of Birth <span class="zh">出生日期</span><span class="req">*</span></label><input type="date" id="p1_dob" name="p1_dob" required="" placeholder=""></div><div class="field span-4" data-label="Place of Birth (City / Country) / 出生地（市/国家）"><label for="p1_placeOfBirth">Place of Birth (City / Country) <span class="zh">出生地（市/国家）</span><span class="req">*</span></label><input type="text" id="p1_placeOfBirth" name="p1_placeOfBirth" required="" placeholder=""></div><div class="field span-4" data-label="Nationality / 国籍"><label for="p1_nationality">Nationality <span class="zh">国籍</span><span class="req">*</span></label><input type="text" id="p1_nationality" name="p1_nationality" required="" placeholder=""></div></div><div class="grid"><div class="field span-4" data-label="Gender / 性别"><label for="p1_gender">Gender <span class="zh">性别</span><span class="req">*</span></label><select id="p1_gender" name="p1_gender" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Male 男">Male 男</option><option value="Female 女">Female 女</option></select></div><div class="field span-4" data-label="ID Card / Passport No. / 身份证/护照号码"><label for="p1_idNumber">ID Card / Passport No. <span class="zh">身份证/护照号码</span><span class="req">*</span></label><input type="text" id="p1_idNumber" name="p1_idNumber" required="" placeholder=""></div><div class="field span-4" data-label="Place of Issue / 签发地点"><label for="p1_placeOfIssue">Place of Issue <span class="zh">签发地点</span></label><input type="text" id="p1_placeOfIssue" name="p1_placeOfIssue" placeholder=""></div></div><div class="section-desc" style="margin-top:6px;">Permanent Residential Address * 永久居住地址（请勿使用邮政信箱）</div><div class="grid"><div class="field span-3" data-label="District / City / 区/市"><label for="p1_permCity">District / City <span class="zh">区/市</span><span class="req">*</span></label><input type="text" id="p1_permCity" name="p1_permCity" required="" placeholder=""></div><div class="field span-3" data-label="Province / State / 省/州"><label for="p1_permProvince">Province / State <span class="zh">省/州</span><span class="req">*</span></label><input type="text" id="p1_permProvince" name="p1_permProvince" required="" placeholder=""></div><div class="field span-3" data-label="Country / 国家"><label for="p1_permCountry">Country <span class="zh">国家</span><span class="req">*</span></label><input type="text" id="p1_permCountry" name="p1_permCountry" required="" placeholder=""></div><div class="field span-3" data-label="Post Code / 邮编"><label for="p1_permPostcode">Post Code <span class="zh">邮编</span></label><input type="text" id="p1_permPostcode" name="p1_permPostcode" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Mailing Address same as above? / 邮寄地址同上？"><label for="p1_mailingSame">Mailing Address same as above? <span class="zh">邮寄地址同上？</span></label><select id="p1_mailingSame" name="p1_mailingSame" class="toggle-select" data-toggle-target="p1_mailingBlock" data-show-when="no"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="yes">Yes 是</option><option value="no">No 否</option></select></div></div><div id="p1_mailingBlock" hidden=""><div class="grid"><div class="field span-3" data-label="District / City / 区/市"><label for="p1_mailCity">District / City <span class="zh">区/市</span></label><input type="text" id="p1_mailCity" name="p1_mailCity" placeholder=""></div><div class="field span-3" data-label="Province / State / 省/州"><label for="p1_mailProvince">Province / State <span class="zh">省/州</span></label><input type="text" id="p1_mailProvince" name="p1_mailProvince" placeholder=""></div><div class="field span-3" data-label="Country / 国家"><label for="p1_mailCountry">Country <span class="zh">国家</span></label><input type="text" id="p1_mailCountry" name="p1_mailCountry" placeholder=""></div><div class="field span-3" data-label="Post Code / 邮编"><label for="p1_mailPostcode">Post Code <span class="zh">邮编</span></label><input type="text" id="p1_mailPostcode" name="p1_mailPostcode" placeholder=""></div></div></div><div class="grid"><div class="field span-6" data-label="Contact Tel. (Country Code + Number) / 联系电话（国家代码+号码）"><label for="p1_phone">Contact Tel. (Country Code + Number) <span class="zh">联系电话（国家代码+号码）</span><span class="req">*</span></label><input type="tel" id="p1_phone" name="p1_phone" required="" placeholder=""></div><div class="field span-6" data-label="Email Address / 电子邮件地址"><label for="p1_email">Email Address <span class="zh">电子邮件地址</span><span class="req">*</span></label><input type="email" id="p1_email" name="p1_email" required="" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Education / 教育背景"><label for="p1_education">Education <span class="zh">教育背景</span><span class="req">*</span></label><select id="p1_education" name="p1_education" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Lower Secondary or below 初中及以下">Lower Secondary or below 初中及以下</option><option value="Upper Secondary 高中">Upper Secondary 高中</option><option value="Diploma / Certificate 大专">Diploma / Certificate 大专</option><option value="Tertiary or above 本科及以上">Tertiary or above 本科及以上</option></select></div></div></div><div class="section"><div class="section-head"><span class="section-badge">1B</span><h3>Marital Status<span class="zh">婚姻状况</span></h3></div><div class="grid"><div class="field span-12" data-label="Marital Status / 婚姻状况"><label for="p1_maritalStatus">Marital Status <span class="zh">婚姻状况</span><span class="req">*</span></label><select id="p1_maritalStatus" name="p1_maritalStatus" required="" class="toggle-select" data-toggle-target="p1_spouseBlock" data-show-when="Married 已婚"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Single 单身">Single 单身</option><option value="Married 已婚">Married 已婚</option><option value="Divorced 离婚">Divorced 离婚</option><option value="Widowed 丧偶">Widowed 丧偶</option></select></div></div><div id="p1_spouseBlock" hidden=""><div class="section-desc">Complete if Married 如已婚请填写</div><div class="grid"><div class="field span-4" data-label="Spouse Name (Chinese) / 配偶中文姓名"><label for="p1_spouseNameChinese">Spouse Name (Chinese) <span class="zh">配偶中文姓名</span></label><input type="text" id="p1_spouseNameChinese" name="p1_spouseNameChinese" placeholder=""></div><div class="field span-4" data-label="Spouse Surname (English) / 配偶英文姓氏"><label for="p1_spouseSurname">Spouse Surname (English) <span class="zh">配偶英文姓氏</span></label><input type="text" id="p1_spouseSurname" name="p1_spouseSurname" placeholder=""></div><div class="field span-4" data-label="Spouse Given Names (English) / 配偶英文名字"><label for="p1_spouseGivenNames">Spouse Given Names (English) <span class="zh">配偶英文名字</span></label><input type="text" id="p1_spouseGivenNames" name="p1_spouseGivenNames" placeholder=""></div></div><div class="grid"><div class="field span-6" data-label="Spouse Date of Birth / 配偶出生日期"><label for="p1_spouseDob">Spouse Date of Birth <span class="zh">配偶出生日期</span></label><input type="date" id="p1_spouseDob" name="p1_spouseDob" placeholder=""></div><div class="field span-6" data-label="Spouse Occupation / 配偶职业"><label for="p1_spouseOccupation">Spouse Occupation <span class="zh">配偶职业</span></label><input type="text" id="p1_spouseOccupation" name="p1_spouseOccupation" placeholder=""></div></div></div></div><div class="section"><div class="section-head"><span class="section-badge">2</span><h3>Employment Record<span class="zh">工作经历</span></h3></div><div class="grid"><div class="field span-12" data-label="Current Status / 目前工作状况"><label for="p1_employmentStatus">Current Status <span class="zh">目前工作状况</span><span class="req">*</span></label><select id="p1_employmentStatus" name="p1_employmentStatus" required="" data-other="true"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Employed 就业">Employed 就业</option><option value="Self-employed 自雇">Self-employed 自雇</option><option value="Business Owner 企业主 (complete 2B)">Business Owner 企业主 (complete 2B)</option><option value="Retired 退休">Retired 退休</option><option value="Housewife 家庭主妇">Housewife 家庭主妇</option><option value="Others 其他">Others 其他</option></select><input type="text" class="other-box" id="p1_employmentStatus_other" name="p1_employmentStatus_other" placeholder="Please specify 请注明" hidden=""></div></div><div class="grid"><div class="field span-6" data-label="Employer / Company Name / 雇主/公司名称"><label for="p1_employer">Employer / Company Name <span class="zh">雇主/公司名称</span></label><input type="text" id="p1_employer" name="p1_employer" placeholder=""></div><div class="field span-6" data-label="Job Title / Position / 职位"><label for="p1_jobTitle">Job Title / Position <span class="zh">职位</span><span class="req">*</span></label><input type="text" id="p1_jobTitle" name="p1_jobTitle" required="" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Nature of Business / 业务性质"><label>Nature of Business <span class="zh">业务性质</span></label><div class="choice-group"><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Finance/Insurance 金融/保险"> Finance/Insurance 金融/保险</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Real Estate 房地产"> Real Estate 房地产</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Import/Export/Wholesale/Retail 进出口/批发/零售"> Import/Export/Wholesale/Retail 进出口/批发/零售</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Manufacturing 制造业"> Manufacturing 制造业</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Construction 建筑"> Construction 建筑</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Information/Communication 信息/通讯"> Information/Communication 信息/通讯</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Medical 医疗"> Medical 医疗</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Education 教育"> Education 教育</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Arts/Entertainment 艺术/娱乐"> Arts/Entertainment 艺术/娱乐</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Government/Public Admin 政府/公共管理"> Government/Public Admin 政府/公共管理</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Science/Technology 科技"> Science/Technology 科技</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Transport/Logistics 运输物流"> Transport/Logistics 运输物流</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Agriculture/Fisheries 农业/渔业"> Agriculture/Fisheries 农业/渔业</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Social Services 社会服务"> Social Services 社会服务</label><label class="choice"><input type="radio" name="p1_natureOfBusinessEmp" value="Others 其他"> Others 其他 <input type="text" class="other-inline" id="p1_natureOfBusinessEmp_other_Others" placeholder="Please specify 请注明" hidden=""></label></div></div></div><div class="grid"><div class="field span-6" data-label="Duration of Employment (YYYY/MM – YYYY/MM) / 任职期限"><label for="p1_employmentDuration">Duration of Employment (YYYY/MM – YYYY/MM) <span class="zh">任职期限</span><span class="req">*</span></label><input type="text" id="p1_employmentDuration" name="p1_employmentDuration" required="" placeholder=""></div><div class="field span-6" data-label="Annual Salary (USD) / 年薪（美元）"><label for="p1_annualSalary">Annual Salary (USD) <span class="zh">年薪（美元）</span></label><input type="number" id="p1_annualSalary" name="p1_annualSalary" placeholder=""></div></div></div><div class="section"><div class="section-head"><span class="section-badge">2B</span><h3>Business Owner Details<span class="zh">企业主请填写</span></h3></div><div class="section-desc">If not applicable, skip to Section 3 如不适用，请跳至第3节</div><div class="grid"><div class="field span-4" data-label="Company Name / 公司名称"><label for="p1_bizName">Company Name <span class="zh">公司名称</span></label><input type="text" id="p1_bizName" name="p1_bizName" placeholder=""></div><div class="field span-4" data-label="Company Website / 公司主页"><label for="p1_bizWebsite">Company Website <span class="zh">公司主页</span></label><input type="text" id="p1_bizWebsite" name="p1_bizWebsite" placeholder=""></div><div class="field span-4" data-label="Date of Incorporation / 成立日期"><label for="p1_bizIncorpDate">Date of Incorporation <span class="zh">成立日期</span></label><input type="date" id="p1_bizIncorpDate" name="p1_bizIncorpDate" placeholder=""></div></div><div class="grid"><div class="field span-4" data-label="No. of Employees / 员工人数"><label for="p1_bizEmployees">No. of Employees <span class="zh">员工人数</span></label><input type="number" id="p1_bizEmployees" name="p1_bizEmployees" placeholder=""></div><div class="field span-4" data-label="Annual Turnover (USD) / 年营业收入（美元）"><label for="p1_bizTurnover">Annual Turnover (USD) <span class="zh">年营业收入（美元）</span></label><input type="number" id="p1_bizTurnover" name="p1_bizTurnover" placeholder=""></div><div class="field span-4" data-label="Net Profit p.a. (USD) / 年净利润（美元）"><label for="p1_bizNetProfit">Net Profit p.a. (USD) <span class="zh">年净利润（美元）</span></label><input type="number" id="p1_bizNetProfit" name="p1_bizNetProfit" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Business Activities / Products &amp; Services / 主营业务/产品与服务"><label for="p1_bizActivities">Business Activities / Products &amp; Services <span class="zh">主营业务/产品与服务</span></label><textarea id="p1_bizActivities" name="p1_bizActivities" rows="2" placeholder=""></textarea></div></div><div class="grid"><div class="field span-12" data-label="Source of Seed Capital &amp; How Business Grew / 种子资金来源及业务发展历程"><label for="p1_bizSeedCapital">Source of Seed Capital &amp; How Business Grew <span class="zh">种子资金来源及业务发展历程</span></label><textarea id="p1_bizSeedCapital" name="p1_bizSeedCapital" rows="2" placeholder=""></textarea></div></div><div class="grid"><div class="field span-6" data-label="Owner / Main Shareholders &amp; Stake (%) / 主要股东及持股比例"><label for="p1_bizOwners">Owner / Main Shareholders &amp; Stake (%) <span class="zh">主要股东及持股比例</span></label><textarea id="p1_bizOwners" name="p1_bizOwners" rows="2" placeholder=""></textarea></div><div class="field span-6" data-label="Annual Income from Business (Salary + Dividends, USD) / 年收入（薪资+股息）"><label for="p1_bizAnnualIncome">Annual Income from Business (Salary + Dividends, USD) <span class="zh">年收入（薪资+股息）</span></label><input type="number" id="p1_bizAnnualIncome" name="p1_bizAnnualIncome" placeholder=""></div></div></div><div class="section"><div class="section-head"><span class="section-badge">3</span><h3>Financial Status<span class="zh">财务状况</span></h3></div><div class="grid"><div class="field span-12" data-required-group="true" data-label="Source of Capital / Wealth / 资金/财富来源"><label>Source of Capital / Wealth <span class="zh">资金/财富来源</span><span class="req">*</span></label><div class="choice-group"><label class="choice"><input type="checkbox" name="p1_sourceOfCapital" value="Salary 薪资"> Salary 薪资</label><label class="choice"><input type="checkbox" name="p1_sourceOfCapital" value="Business Revenue 营业收入"> Business Revenue 营业收入</label><label class="choice"><input type="checkbox" name="p1_sourceOfCapital" value="Investment Return 投资回报"> Investment Return 投资回报</label><label class="choice"><input type="checkbox" name="p1_sourceOfCapital" value="Dividends/Interest 股息/利息"> Dividends/Interest 股息/利息</label><label class="choice"><input type="checkbox" name="p1_sourceOfCapital" value="Rent 租金"> Rent 租金</label><label class="choice"><input type="checkbox" name="p1_sourceOfCapital" value="Pension 养老金"> Pension 养老金</label><label class="choice"><input type="checkbox" name="p1_sourceOfCapital" value="Savings 储蓄"> Savings 储蓄</label><label class="choice"><input type="checkbox" name="p1_sourceOfCapital" value="Others 其他"> Others 其他 <input type="text" class="other-inline" id="p1_sourceOfCapital_other_Others" placeholder="Please specify 请注明" hidden=""></label></div></div></div><div class="grid"><div class="field span-12" data-label="Annual Income (USD) / 年收入（美元）"><label for="p1_annualIncome">Annual Income (USD) <span class="zh">年收入（美元）</span><span class="req">*</span></label><select id="p1_annualIncome" name="p1_annualIncome" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="≤30,000">≤30,000</option><option value="30,001–70,000">30,001–70,000</option><option value="70,001–150,000">70,001–150,000</option><option value="150,001–250,000">150,001–250,000</option><option value="&gt;250,000">&gt;250,000</option></select></div></div><div class="grid"><div class="field span-12" data-label="Origin of Capital / Wealth / 资本/财富的起源地"><label for="p1_originOfCapital">Origin of Capital / Wealth <span class="zh">资本/财富的起源地</span><span class="req">*</span></label><select id="p1_originOfCapital" name="p1_originOfCapital" required="" data-other="true"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Hong Kong 香港">Hong Kong 香港</option><option value="Mainland China 中国大陆">Mainland China 中国大陆</option><option value="Others 其他">Others 其他</option></select><input type="text" class="other-box" id="p1_originOfCapital_other" name="p1_originOfCapital_other" placeholder="Please specify 请注明" hidden=""></div></div><div class="grid"><div class="field span-12" data-label="Assets Held / 资产类型"><label for="p1_assetsHeld">Assets Held <span class="zh">资产类型</span></label><select id="p1_assetsHeld" name="p1_assetsHeld" multiple="" size="5" data-other="true"><option value="Real Estate 房地产">Real Estate 房地产</option><option value="Cash/Savings 现金/储蓄">Cash/Savings 现金/储蓄</option><option value="Listed Securities 上市证券">Listed Securities 上市证券</option><option value="Bonds 债券">Bonds 债券</option><option value="Others 其他">Others 其他</option></select><div class="multi-hint">Hold Ctrl / Cmd (or tap multiple) to select more than one 按住 Ctrl/Cmd 可多选</div><input type="text" class="other-box" id="p1_assetsHeld_other" name="p1_assetsHeld_other" placeholder="Please specify 请注明" hidden=""></div></div><div class="grid"><div class="field span-6" data-label="Bank Deposits &amp; Listed Securities Value (USD) — state bank names / 银行存款及上市证券市值（请注明银行）"><label for="p1_bankSecuritiesValue">Bank Deposits &amp; Listed Securities Value (USD) — state bank names <span class="zh">银行存款及上市证券市值（请注明银行）</span></label><textarea id="p1_bankSecuritiesValue" name="p1_bankSecuritiesValue" rows="2" placeholder=""></textarea></div><div class="field span-6" data-label="Real Estate Value (USD) &amp; Address(es) / 房地产估值及地址"><label for="p1_realEstateValue">Real Estate Value (USD) &amp; Address(es) <span class="zh">房地产估值及地址</span></label><textarea id="p1_realEstateValue" name="p1_realEstateValue" rows="2" placeholder=""></textarea></div></div><div class="grid"><div class="field span-12" data-label="Estimated Net Worth (USD) / 预估净资产（美元）"><label for="p1_netWorth">Estimated Net Worth (USD) <span class="zh">预估净资产（美元）</span><span class="req">*</span></label><select id="p1_netWorth" name="p1_netWorth" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="1,000,000–2,000,000">1,000,000–2,000,000</option><option value="2,000,001–5,000,000">2,000,001–5,000,000</option><option value="5,000,001–10,000,000">5,000,001–10,000,000</option><option value="10,000,001–15,000,000">10,000,001–15,000,000</option><option value="&gt;15,000,000">&gt;15,000,000</option></select></div></div></div><div class="section"><div class="section-head"><span class="section-badge">4</span><h3>Relationship Manager Certification<span class="zh">客户关系经理确认</span></h3></div><div class="info-box">I confirm that I have sighted, acknowledged, and certified the personal particulars and documents provided by the Client:<span class="zh">我确认已看到、承认并证明客户提供的个人资料及以下文件：</span></div><div class="grid"><div class="field span-12" data-label="Documents Sighted / 已核实文件"><label>Documents Sighted <span class="zh">已核实文件</span></label><div class="choice-group"><label class="choice"><input type="checkbox" name="p1_rmDocs" value="Identity Document 身份证明文件"> Identity Document 身份证明文件</label><label class="choice"><input type="checkbox" name="p1_rmDocs" value="Address Proof 地址证明"> Address Proof 地址证明</label><label class="choice"><input type="checkbox" name="p1_rmDocs" value="Asset Proof 资产证明"> Asset Proof 资产证明</label></div></div></div><div class="grid"><div class="field span-4" data-label="RM Name / 关系经理姓名"><label for="p1_rmName">RM Name <span class="zh">关系经理姓名</span></label><input type="text" id="p1_rmName" name="p1_rmName" placeholder=""></div><div class="field span-4" data-label="SFC CE Number / 证监会CE编号"><label for="p1_rmCE">SFC CE Number <span class="zh">证监会CE编号</span></label><input type="text" id="p1_rmCE" name="p1_rmCE" placeholder=""></div><div class="field span-4" data-label="Date / 日期"><label for="p1_rmDate">Date <span class="zh">日期</span></label><input type="date" id="p1_rmDate" name="p1_rmDate" placeholder=""></div></div><div class="grid"><div class="field span-12"><label>RM Signature <span class="zh">关系经理签名</span></label><div class="sig-wrap"><canvas class="sig-pad" id="p1_signature" width="520" height="120" data-wired="true"></canvas></div><div class="sig-actions"><button type="button" class="btn btn-sm no-print" onclick="clearSignature(&#39;p1_signature&#39;)">Clear 清除</button></div></div></div></div></form>
+      <div id="jointHoldersContainer"></div>
+      <div class="section no-print" id="jointAddWrap" hidden="">
+        <button type="button" class="btn add-row-btn" onclick="addJointHolder()">+ Add joint account holder 添加联名账户持有人</button>
+      </div>
+      <div class="action-bar">
+        <span id="individualValidateMsg" class="validate-msg"></span>
+        <div class="toolbar no-print">
+          <button class="btn" onclick="checkForm()">Check required fields</button>
+          <button class="btn btn-primary" onclick="exportPDF()">Download PDF</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ENTITY SCREEN ================= -->
+  <section id="entityScreen" class="">
+    <div class="card">
+      <div class="doc-head">
+        <h1>Client Information Statement — Entity<span class="zh">客户信息声明（法人实体）</span></h1>
+        <div class="doc-meta">Form ref 表格编号: CIS-ENT<br></div>
+      </div>
+      <form id="entityForm" novalidate="" data-rendered="true"><div class="section"><div class="section-head"><span class="section-badge">E1</span><h3>General Information of Entity<span class="zh">法人实体的一般信息</span></h3></div><div class="grid"><div class="field span-6" data-label="Entity Name / 法人实体名称"><label for="e_entityName">Entity Name <span class="zh">法人实体名称</span><span class="req">*</span></label><input type="text" id="e_entityName" name="e_entityName" required="" placeholder=""></div><div class="field span-6" data-label="Certificate of Incorporation No. / 公司注册证书编号"><label for="e_certNo">Certificate of Incorporation No. <span class="zh">公司注册证书编号</span><span class="req">*</span></label><input type="text" id="e_certNo" name="e_certNo" required="" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Nature of Entity / 法人实体的性质"><label for="e_entityNature">Nature of Entity <span class="zh">法人实体的性质</span><span class="req">*</span></label><select id="e_entityNature" name="e_entityNature" required="" data-other="true"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Listed Company 上市公司">Listed Company 上市公司</option><option value="Unlisted Limited Company 非上市公司">Unlisted Limited Company 非上市公司</option><option value="Sole Partnership 个人合伙">Sole Partnership 个人合伙</option><option value="Partnership 合伙企业">Partnership 合伙企业</option><option value="Trust 信托">Trust 信托</option><option value="Others 其他">Others 其他</option></select><input type="text" class="other-box" id="e_entityNature_other" name="e_entityNature_other" placeholder="Please specify 请注明" hidden=""></div></div><div class="grid"><div class="field span-4" data-label="Country of Incorporation / 注册国家"><label for="e_countryIncorp">Country of Incorporation <span class="zh">注册国家</span><span class="req">*</span></label><input type="text" id="e_countryIncorp" name="e_countryIncorp" required="" placeholder=""></div><div class="field span-4" data-label="Principal Place of Business / 主要营业地点"><label for="e_principalPlace">Principal Place of Business <span class="zh">主要营业地点</span><span class="req">*</span></label><input type="text" id="e_principalPlace" name="e_principalPlace" required="" placeholder=""></div><div class="field span-4" data-label="Country of Ordinary Business / 业务所在国家/地区"><label for="e_countryOrdinary">Country of Ordinary Business <span class="zh">业务所在国家/地区</span><span class="req">*</span></label><input type="text" id="e_countryOrdinary" name="e_countryOrdinary" required="" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="US Person? / 是否为美国人"><label for="e_usPerson">US Person? <span class="zh">是否为美国人</span><span class="req">*</span></label><select id="e_usPerson" name="e_usPerson" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Non-US 非美国">Non-US 非美国</option><option value="US 美国">US 美国</option></select></div></div><div class="section-desc" style="margin-top:6px;">Registered Address * 注册地址</div><div class="grid"><div class="field span-3" data-label="City / District / 区/市"><label for="e_regCity">City / District <span class="zh">区/市</span><span class="req">*</span></label><input type="text" id="e_regCity" name="e_regCity" required="" placeholder=""></div><div class="field span-3" data-label="Province / State / 省/州"><label for="e_regProvince">Province / State <span class="zh">省/州</span><span class="req">*</span></label><input type="text" id="e_regProvince" name="e_regProvince" required="" placeholder=""></div><div class="field span-3" data-label="Country / 国家"><label for="e_regCountry">Country <span class="zh">国家</span><span class="req">*</span></label><input type="text" id="e_regCountry" name="e_regCountry" required="" placeholder=""></div><div class="field span-3" data-label="Post Code / 邮编"><label for="e_regPostcode">Post Code <span class="zh">邮编</span></label><input type="text" id="e_regPostcode" name="e_regPostcode" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Correspondence Address same as Registered Address? / 通讯地址同注册地址？"><label for="e_corrSame">Correspondence Address same as Registered Address? <span class="zh">通讯地址同注册地址？</span></label><select id="e_corrSame" name="e_corrSame" class="toggle-select" data-toggle-target="e_corrBlock" data-show-when="no"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="yes">Yes 是</option><option value="no">No 否</option></select></div></div><div id="e_corrBlock" hidden=""><div class="grid"><div class="field span-3" data-label="City / District / 区/市"><label for="e_corrCity">City / District <span class="zh">区/市</span></label><input type="text" id="e_corrCity" name="e_corrCity" placeholder=""></div><div class="field span-3" data-label="Province / State / 省/州"><label for="e_corrProvince">Province / State <span class="zh">省/州</span></label><input type="text" id="e_corrProvince" name="e_corrProvince" placeholder=""></div><div class="field span-3" data-label="Country / 国家"><label for="e_corrCountry">Country <span class="zh">国家</span></label><input type="text" id="e_corrCountry" name="e_corrCountry" placeholder=""></div><div class="field span-3" data-label="Post Code / 邮编"><label for="e_corrPostcode">Post Code <span class="zh">邮编</span></label><input type="text" id="e_corrPostcode" name="e_corrPostcode" placeholder=""></div></div></div><div class="grid"><div class="field span-12" data-label="Nature of Business / 业务性质"><label for="e_natureOfBiz">Nature of Business <span class="zh">业务性质</span></label><input type="text" id="e_natureOfBiz" name="e_natureOfBiz" placeholder=""></div></div></div><div class="section"><div class="section-head"><span class="section-badge">E1B</span><h3>Director(s) Details<span class="zh">董事详细信息</span></h3></div><div class="section-desc">Add rows if more than one director 如有多名董事请增加行数</div><div id="directorsContainer"><div class="repeat-block"><div class="repeat-title">Director 1 董事 1</div><div class="grid"><div class="field span-5" data-label="Director Name / 董事姓名"><label for="dir1_name">Director Name <span class="zh">董事姓名</span><span class="req">*</span></label><input type="text" id="dir1_name" name="dir1_name" required="" placeholder=""></div><div class="field span-4" data-label="HKID / Passport No. / 香港身份证/护照号码"><label for="dir1_idNumber">HKID / Passport No. <span class="zh">香港身份证/护照号码</span><span class="req">*</span></label><input type="text" id="dir1_idNumber" name="dir1_idNumber" required="" placeholder=""></div><div class="field span-3" data-label="Contact Number / 联系电话"><label for="dir1_contact">Contact Number <span class="zh">联系电话</span></label><input type="text" id="dir1_contact" name="dir1_contact" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Director Correspondence Address / 董事通讯地址"><label for="dir1_address">Director Correspondence Address <span class="zh">董事通讯地址</span></label><input type="text" id="dir1_address" name="dir1_address" placeholder=""></div></div></div></div><button type="button" class="btn add-row-btn no-print" onclick="addDirector()">+ Add director 添加董事</button></div><div class="section"><div class="section-head"><span class="section-badge"></span><h3>Definition of Beneficial Owner<span class="zh">受益人定义</span></h3></div><div class="info-box">A Beneficial Owner is any individual who: (a) owns/controls ≥25% of issued share capital or voting rights; (b) exercises ultimate control over management; or (c) is a settlor/beneficiary with ≥25% interest in an underlying trust, or exercises ultimate effective control over such trust.<span class="zh">受益人是指以下任何个人：(a) 直接或间接拥有/控制不少于25%的已发行股本或表决权；(b) 对管理层行使最终控制权；或 (c) 作为委托人/受益人拥有信托不少于25%的权益，或对信托行使最终有效控制权。</span></div><div class="grid"><div class="field span-6" data-label="Number of Ultimate Beneficial Owners (UBOs) / 受益人人数"><label for="e_uboCount">Number of Ultimate Beneficial Owners (UBOs) <span class="zh">受益人人数</span><span class="req">*</span></label><input type="number" id="e_uboCount" name="e_uboCount" required="" placeholder="e.g. 2"></div></div><div class="section-desc">Complete one sub-section below per UBO 每位受益人填写一个子节</div></div><div class="section"><div class="section-head"><span class="section-badge">E2</span><h3>Beneficial Owner — Personal Particulars<span class="zh">受益人 — 个人资料</span></h3></div><div class="section-desc">Each beneficial owner should complete the Client Information Statement (Individual). Documents sighted and RM signature for all beneficial owners are certified once, together, in Section E3 below. 每位受益人須填写一份客户信息声明（个人)。所有受益人的文件核实及关系经理签名将于下方E3部分统一确认。</div><div id="boContainer"><div class="owner-block"><div class="owner-head"><span>Beneficial Owner 1 受益人 1</span></div><div style="padding:4px 0;"><div class="section"><div class="section-head"><span class="section-badge">1</span><h3>Personal Particulars<span class="zh">个人资料</span></h3></div><div class="grid"><div class="field span-4" data-label="Name (Chinese) / 中文姓名"><label for="bo1_nameChinese">Name (Chinese) <span class="zh">中文姓名</span><span class="req">*</span></label><input type="text" id="bo1_nameChinese" name="bo1_nameChinese" required="" placeholder=""></div><div class="field span-4" data-label="Surname / 英文姓氏"><label for="bo1_surname">Surname <span class="zh">英文姓氏</span><span class="req">*</span></label><input type="text" id="bo1_surname" name="bo1_surname" required="" placeholder=""></div><div class="field span-4" data-label="Given Names / 英文名字"><label for="bo1_givenNames">Given Names <span class="zh">英文名字</span><span class="req">*</span></label><input type="text" id="bo1_givenNames" name="bo1_givenNames" required="" placeholder=""></div></div><div class="grid"><div class="field span-4" data-label="Date of Birth / 出生日期"><label for="bo1_dob">Date of Birth <span class="zh">出生日期</span><span class="req">*</span></label><input type="date" id="bo1_dob" name="bo1_dob" required="" placeholder=""></div><div class="field span-4" data-label="Place of Birth (City / Country) / 出生地（市/国家）"><label for="bo1_placeOfBirth">Place of Birth (City / Country) <span class="zh">出生地（市/国家）</span><span class="req">*</span></label><input type="text" id="bo1_placeOfBirth" name="bo1_placeOfBirth" required="" placeholder=""></div><div class="field span-4" data-label="Nationality / 国籍"><label for="bo1_nationality">Nationality <span class="zh">国籍</span><span class="req">*</span></label><input type="text" id="bo1_nationality" name="bo1_nationality" required="" placeholder=""></div></div><div class="grid"><div class="field span-4" data-label="Gender / 性别"><label for="bo1_gender">Gender <span class="zh">性别</span><span class="req">*</span></label><select id="bo1_gender" name="bo1_gender" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Male 男">Male 男</option><option value="Female 女">Female 女</option></select></div><div class="field span-4" data-label="ID Card / Passport No. / 身份证/护照号码"><label for="bo1_idNumber">ID Card / Passport No. <span class="zh">身份证/护照号码</span><span class="req">*</span></label><input type="text" id="bo1_idNumber" name="bo1_idNumber" required="" placeholder=""></div><div class="field span-4" data-label="Place of Issue / 签发地点"><label for="bo1_placeOfIssue">Place of Issue <span class="zh">签发地点</span></label><input type="text" id="bo1_placeOfIssue" name="bo1_placeOfIssue" placeholder=""></div></div><div class="section-desc" style="margin-top:6px;">Permanent Residential Address * 永久居住地址（请勿使用邮政信箱）</div><div class="grid"><div class="field span-3" data-label="District / City / 区/市"><label for="bo1_permCity">District / City <span class="zh">区/市</span><span class="req">*</span></label><input type="text" id="bo1_permCity" name="bo1_permCity" required="" placeholder=""></div><div class="field span-3" data-label="Province / State / 省/州"><label for="bo1_permProvince">Province / State <span class="zh">省/州</span><span class="req">*</span></label><input type="text" id="bo1_permProvince" name="bo1_permProvince" required="" placeholder=""></div><div class="field span-3" data-label="Country / 国家"><label for="bo1_permCountry">Country <span class="zh">国家</span><span class="req">*</span></label><input type="text" id="bo1_permCountry" name="bo1_permCountry" required="" placeholder=""></div><div class="field span-3" data-label="Post Code / 邮编"><label for="bo1_permPostcode">Post Code <span class="zh">邮编</span></label><input type="text" id="bo1_permPostcode" name="bo1_permPostcode" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Mailing Address same as above? / 邮寄地址同上？"><label for="bo1_mailingSame">Mailing Address same as above? <span class="zh">邮寄地址同上？</span></label><select id="bo1_mailingSame" name="bo1_mailingSame" class="toggle-select" data-toggle-target="bo1_mailingBlock" data-show-when="no"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="yes">Yes 是</option><option value="no">No 否</option></select></div></div><div id="bo1_mailingBlock" hidden=""><div class="grid"><div class="field span-3" data-label="District / City / 区/市"><label for="bo1_mailCity">District / City <span class="zh">区/市</span></label><input type="text" id="bo1_mailCity" name="bo1_mailCity" placeholder=""></div><div class="field span-3" data-label="Province / State / 省/州"><label for="bo1_mailProvince">Province / State <span class="zh">省/州</span></label><input type="text" id="bo1_mailProvince" name="bo1_mailProvince" placeholder=""></div><div class="field span-3" data-label="Country / 国家"><label for="bo1_mailCountry">Country <span class="zh">国家</span></label><input type="text" id="bo1_mailCountry" name="bo1_mailCountry" placeholder=""></div><div class="field span-3" data-label="Post Code / 邮编"><label for="bo1_mailPostcode">Post Code <span class="zh">邮编</span></label><input type="text" id="bo1_mailPostcode" name="bo1_mailPostcode" placeholder=""></div></div></div><div class="grid"><div class="field span-6" data-label="Contact Tel. (Country Code + Number) / 联系电话（国家代码+号码）"><label for="bo1_phone">Contact Tel. (Country Code + Number) <span class="zh">联系电话（国家代码+号码）</span><span class="req">*</span></label><input type="tel" id="bo1_phone" name="bo1_phone" required="" placeholder=""></div><div class="field span-6" data-label="Email Address / 电子邮件地址"><label for="bo1_email">Email Address <span class="zh">电子邮件地址</span><span class="req">*</span></label><input type="email" id="bo1_email" name="bo1_email" required="" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Education / 教育背景"><label for="bo1_education">Education <span class="zh">教育背景</span><span class="req">*</span></label><select id="bo1_education" name="bo1_education" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Lower Secondary or below 初中及以下">Lower Secondary or below 初中及以下</option><option value="Upper Secondary 高中">Upper Secondary 高中</option><option value="Diploma / Certificate 大专">Diploma / Certificate 大专</option><option value="Tertiary or above 本科及以上">Tertiary or above 本科及以上</option></select></div></div></div><div class="section"><div class="section-head"><span class="section-badge">1B</span><h3>Marital Status<span class="zh">婚姻状况</span></h3></div><div class="grid"><div class="field span-12" data-label="Marital Status / 婚姻状况"><label for="bo1_maritalStatus">Marital Status <span class="zh">婚姻状况</span><span class="req">*</span></label><select id="bo1_maritalStatus" name="bo1_maritalStatus" required="" class="toggle-select" data-toggle-target="bo1_spouseBlock" data-show-when="Married 已婚"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Single 单身">Single 单身</option><option value="Married 已婚">Married 已婚</option><option value="Divorced 离婚">Divorced 离婚</option><option value="Widowed 丧偶">Widowed 丧偶</option></select></div></div><div id="bo1_spouseBlock" hidden=""><div class="section-desc">Complete if Married 如已婚请填写</div><div class="grid"><div class="field span-4" data-label="Spouse Name (Chinese) / 配偶中文姓名"><label for="bo1_spouseNameChinese">Spouse Name (Chinese) <span class="zh">配偶中文姓名</span></label><input type="text" id="bo1_spouseNameChinese" name="bo1_spouseNameChinese" placeholder=""></div><div class="field span-4" data-label="Spouse Surname (English) / 配偶英文姓氏"><label for="bo1_spouseSurname">Spouse Surname (English) <span class="zh">配偶英文姓氏</span></label><input type="text" id="bo1_spouseSurname" name="bo1_spouseSurname" placeholder=""></div><div class="field span-4" data-label="Spouse Given Names (English) / 配偶英文名字"><label for="bo1_spouseGivenNames">Spouse Given Names (English) <span class="zh">配偶英文名字</span></label><input type="text" id="bo1_spouseGivenNames" name="bo1_spouseGivenNames" placeholder=""></div></div><div class="grid"><div class="field span-6" data-label="Spouse Date of Birth / 配偶出生日期"><label for="bo1_spouseDob">Spouse Date of Birth <span class="zh">配偶出生日期</span></label><input type="date" id="bo1_spouseDob" name="bo1_spouseDob" placeholder=""></div><div class="field span-6" data-label="Spouse Occupation / 配偶职业"><label for="bo1_spouseOccupation">Spouse Occupation <span class="zh">配偶职业</span></label><input type="text" id="bo1_spouseOccupation" name="bo1_spouseOccupation" placeholder=""></div></div></div></div><div class="section"><div class="section-head"><span class="section-badge">2</span><h3>Employment Record<span class="zh">工作经历</span></h3></div><div class="grid"><div class="field span-12" data-label="Current Status / 目前工作状况"><label for="bo1_employmentStatus">Current Status <span class="zh">目前工作状况</span><span class="req">*</span></label><select id="bo1_employmentStatus" name="bo1_employmentStatus" required="" data-other="true"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Employed 就业">Employed 就业</option><option value="Self-employed 自雇">Self-employed 自雇</option><option value="Business Owner 企业主 (complete 2B)">Business Owner 企业主 (complete 2B)</option><option value="Retired 退休">Retired 退休</option><option value="Housewife 家庭主妇">Housewife 家庭主妇</option><option value="Others 其他">Others 其他</option></select><input type="text" class="other-box" id="bo1_employmentStatus_other" name="bo1_employmentStatus_other" placeholder="Please specify 请注明" hidden=""></div></div><div class="grid"><div class="field span-6" data-label="Employer / Company Name / 雇主/公司名称"><label for="bo1_employer">Employer / Company Name <span class="zh">雇主/公司名称</span></label><input type="text" id="bo1_employer" name="bo1_employer" placeholder=""></div><div class="field span-6" data-label="Job Title / Position / 职位"><label for="bo1_jobTitle">Job Title / Position <span class="zh">职位</span><span class="req">*</span></label><input type="text" id="bo1_jobTitle" name="bo1_jobTitle" required="" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Nature of Business / 业务性质"><label>Nature of Business <span class="zh">业务性质</span></label><div class="choice-group"><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Finance/Insurance 金融/保险"> Finance/Insurance 金融/保险</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Real Estate 房地产"> Real Estate 房地产</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Import/Export/Wholesale/Retail 进出口/批发/零售"> Import/Export/Wholesale/Retail 进出口/批发/零售</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Manufacturing 制造业"> Manufacturing 制造业</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Construction 建筑"> Construction 建筑</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Information/Communication 信息/通讯"> Information/Communication 信息/通讯</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Medical 医疗"> Medical 医疗</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Education 教育"> Education 教育</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Arts/Entertainment 艺术/娱乐"> Arts/Entertainment 艺术/娱乐</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Government/Public Admin 政府/公共管理"> Government/Public Admin 政府/公共管理</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Science/Technology 科技"> Science/Technology 科技</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Transport/Logistics 运输物流"> Transport/Logistics 运输物流</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Agriculture/Fisheries 农业/渔业"> Agriculture/Fisheries 农业/渔业</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Social Services 社会服务"> Social Services 社会服务</label><label class="choice"><input type="radio" name="bo1_natureOfBusinessEmp" value="Others 其他"> Others 其他 <input type="text" class="other-inline" id="bo1_natureOfBusinessEmp_other_Others" placeholder="Please specify 请注明" hidden=""></label></div></div></div><div class="grid"><div class="field span-6" data-label="Duration of Employment (YYYY/MM – YYYY/MM) / 任职期限"><label for="bo1_employmentDuration">Duration of Employment (YYYY/MM – YYYY/MM) <span class="zh">任职期限</span><span class="req">*</span></label><input type="text" id="bo1_employmentDuration" name="bo1_employmentDuration" required="" placeholder=""></div><div class="field span-6" data-label="Annual Salary (USD) / 年薪（美元）"><label for="bo1_annualSalary">Annual Salary (USD) <span class="zh">年薪（美元）</span></label><input type="number" id="bo1_annualSalary" name="bo1_annualSalary" placeholder=""></div></div></div><div class="section"><div class="section-head"><span class="section-badge">2B</span><h3>Business Owner Details<span class="zh">企业主请填写</span></h3></div><div class="section-desc">If not applicable, skip to Section 3 如不适用，请跳至第3节</div><div class="grid"><div class="field span-4" data-label="Company Name / 公司名称"><label for="bo1_bizName">Company Name <span class="zh">公司名称</span></label><input type="text" id="bo1_bizName" name="bo1_bizName" placeholder=""></div><div class="field span-4" data-label="Company Website / 公司主页"><label for="bo1_bizWebsite">Company Website <span class="zh">公司主页</span></label><input type="text" id="bo1_bizWebsite" name="bo1_bizWebsite" placeholder=""></div><div class="field span-4" data-label="Date of Incorporation / 成立日期"><label for="bo1_bizIncorpDate">Date of Incorporation <span class="zh">成立日期</span></label><input type="date" id="bo1_bizIncorpDate" name="bo1_bizIncorpDate" placeholder=""></div></div><div class="grid"><div class="field span-4" data-label="No. of Employees / 员工人数"><label for="bo1_bizEmployees">No. of Employees <span class="zh">员工人数</span></label><input type="number" id="bo1_bizEmployees" name="bo1_bizEmployees" placeholder=""></div><div class="field span-4" data-label="Annual Turnover (USD) / 年营业收入（美元）"><label for="bo1_bizTurnover">Annual Turnover (USD) <span class="zh">年营业收入（美元）</span></label><input type="number" id="bo1_bizTurnover" name="bo1_bizTurnover" placeholder=""></div><div class="field span-4" data-label="Net Profit p.a. (USD) / 年净利润（美元）"><label for="bo1_bizNetProfit">Net Profit p.a. (USD) <span class="zh">年净利润（美元）</span></label><input type="number" id="bo1_bizNetProfit" name="bo1_bizNetProfit" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Business Activities / Products &amp; Services / 主营业务/产品与服务"><label for="bo1_bizActivities">Business Activities / Products &amp; Services <span class="zh">主营业务/产品与服务</span></label><textarea id="bo1_bizActivities" name="bo1_bizActivities" rows="2" placeholder=""></textarea></div></div><div class="grid"><div class="field span-12" data-label="Source of Seed Capital &amp; How Business Grew / 种子资金来源及业务发展历程"><label for="bo1_bizSeedCapital">Source of Seed Capital &amp; How Business Grew <span class="zh">种子资金来源及业务发展历程</span></label><textarea id="bo1_bizSeedCapital" name="bo1_bizSeedCapital" rows="2" placeholder=""></textarea></div></div><div class="grid"><div class="field span-6" data-label="Owner / Main Shareholders &amp; Stake (%) / 主要股东及持股比例"><label for="bo1_bizOwners">Owner / Main Shareholders &amp; Stake (%) <span class="zh">主要股东及持股比例</span></label><textarea id="bo1_bizOwners" name="bo1_bizOwners" rows="2" placeholder=""></textarea></div><div class="field span-6" data-label="Annual Income from Business (Salary + Dividends, USD) / 年收入（薪资+股息）"><label for="bo1_bizAnnualIncome">Annual Income from Business (Salary + Dividends, USD) <span class="zh">年收入（薪资+股息）</span></label><input type="number" id="bo1_bizAnnualIncome" name="bo1_bizAnnualIncome" placeholder=""></div></div></div><div class="section"><div class="section-head"><span class="section-badge">3</span><h3>Financial Status<span class="zh">财务状况</span></h3></div><div class="grid"><div class="field span-12" data-required-group="true" data-label="Source of Capital / Wealth / 资金/财富来源"><label>Source of Capital / Wealth <span class="zh">资金/财富来源</span><span class="req">*</span></label><div class="choice-group"><label class="choice"><input type="checkbox" name="bo1_sourceOfCapital" value="Salary 薪资"> Salary 薪资</label><label class="choice"><input type="checkbox" name="bo1_sourceOfCapital" value="Business Revenue 营业收入"> Business Revenue 营业收入</label><label class="choice"><input type="checkbox" name="bo1_sourceOfCapital" value="Investment Return 投资回报"> Investment Return 投资回报</label><label class="choice"><input type="checkbox" name="bo1_sourceOfCapital" value="Dividends/Interest 股息/利息"> Dividends/Interest 股息/利息</label><label class="choice"><input type="checkbox" name="bo1_sourceOfCapital" value="Rent 租金"> Rent 租金</label><label class="choice"><input type="checkbox" name="bo1_sourceOfCapital" value="Pension 养老金"> Pension 养老金</label><label class="choice"><input type="checkbox" name="bo1_sourceOfCapital" value="Savings 储蓄"> Savings 储蓄</label><label class="choice"><input type="checkbox" name="bo1_sourceOfCapital" value="Others 其他"> Others 其他 <input type="text" class="other-inline" id="bo1_sourceOfCapital_other_Others" placeholder="Please specify 请注明" hidden=""></label></div></div></div><div class="grid"><div class="field span-12" data-label="Annual Income (USD) / 年收入（美元）"><label for="bo1_annualIncome">Annual Income (USD) <span class="zh">年收入（美元）</span><span class="req">*</span></label><select id="bo1_annualIncome" name="bo1_annualIncome" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="≤30,000">≤30,000</option><option value="30,001–70,000">30,001–70,000</option><option value="70,001–150,000">70,001–150,000</option><option value="150,001–250,000">150,001–250,000</option><option value="&gt;250,000">&gt;250,000</option></select></div></div><div class="grid"><div class="field span-12" data-label="Origin of Capital / Wealth / 资本/财富的起源地"><label for="bo1_originOfCapital">Origin of Capital / Wealth <span class="zh">资本/财富的起源地</span><span class="req">*</span></label><select id="bo1_originOfCapital" name="bo1_originOfCapital" required="" data-other="true"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Hong Kong 香港">Hong Kong 香港</option><option value="Mainland China 中国大陆">Mainland China 中国大陆</option><option value="Others 其他">Others 其他</option></select><input type="text" class="other-box" id="bo1_originOfCapital_other" name="bo1_originOfCapital_other" placeholder="Please specify 请注明" hidden=""></div></div><div class="grid"><div class="field span-12" data-label="Assets Held / 资产类型"><label for="bo1_assetsHeld">Assets Held <span class="zh">资产类型</span></label><select id="bo1_assetsHeld" name="bo1_assetsHeld" multiple="" size="5" data-other="true"><option value="Real Estate 房地产">Real Estate 房地产</option><option value="Cash/Savings 现金/储蓄">Cash/Savings 现金/储蓄</option><option value="Listed Securities 上市证券">Listed Securities 上市证券</option><option value="Bonds 债券">Bonds 债券</option><option value="Others 其他">Others 其他</option></select><div class="multi-hint">Hold Ctrl / Cmd (or tap multiple) to select more than one 按住 Ctrl/Cmd 可多选</div><input type="text" class="other-box" id="bo1_assetsHeld_other" name="bo1_assetsHeld_other" placeholder="Please specify 请注明" hidden=""></div></div><div class="grid"><div class="field span-6" data-label="Bank Deposits &amp; Listed Securities Value (USD) — state bank names / 银行存款及上市证券市值（请注明银行）"><label for="bo1_bankSecuritiesValue">Bank Deposits &amp; Listed Securities Value (USD) — state bank names <span class="zh">银行存款及上市证券市值（请注明银行）</span></label><textarea id="bo1_bankSecuritiesValue" name="bo1_bankSecuritiesValue" rows="2" placeholder=""></textarea></div><div class="field span-6" data-label="Real Estate Value (USD) &amp; Address(es) / 房地产估值及地址"><label for="bo1_realEstateValue">Real Estate Value (USD) &amp; Address(es) <span class="zh">房地产估值及地址</span></label><textarea id="bo1_realEstateValue" name="bo1_realEstateValue" rows="2" placeholder=""></textarea></div></div><div class="grid"><div class="field span-12" data-label="Estimated Net Worth (USD) / 预估净资产（美元）"><label for="bo1_netWorth">Estimated Net Worth (USD) <span class="zh">预估净资产（美元）</span><span class="req">*</span></label><select id="bo1_netWorth" name="bo1_netWorth" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="1,000,000–2,000,000">1,000,000–2,000,000</option><option value="2,000,001–5,000,000">2,000,001–5,000,000</option><option value="5,000,001–10,000,000">5,000,001–10,000,000</option><option value="10,000,001–15,000,000">10,000,001–15,000,000</option><option value="&gt;15,000,000">&gt;15,000,000</option></select></div></div></div></div></div><div class="owner-block"><div class="owner-head"><span>Beneficial Owner 2 受益人 2</span></div><div style="padding:4px 0;"><div class="section"><div class="section-head"><span class="section-badge">1</span><h3>Personal Particulars<span class="zh">个人资料</span></h3></div><div class="grid"><div class="field span-4" data-label="Name (Chinese) / 中文姓名"><label for="bo2_nameChinese">Name (Chinese) <span class="zh">中文姓名</span><span class="req">*</span></label><input type="text" id="bo2_nameChinese" name="bo2_nameChinese" required="" placeholder=""></div><div class="field span-4" data-label="Surname / 英文姓氏"><label for="bo2_surname">Surname <span class="zh">英文姓氏</span><span class="req">*</span></label><input type="text" id="bo2_surname" name="bo2_surname" required="" placeholder=""></div><div class="field span-4" data-label="Given Names / 英文名字"><label for="bo2_givenNames">Given Names <span class="zh">英文名字</span><span class="req">*</span></label><input type="text" id="bo2_givenNames" name="bo2_givenNames" required="" placeholder=""></div></div><div class="grid"><div class="field span-4" data-label="Date of Birth / 出生日期"><label for="bo2_dob">Date of Birth <span class="zh">出生日期</span><span class="req">*</span></label><input type="date" id="bo2_dob" name="bo2_dob" required="" placeholder=""></div><div class="field span-4" data-label="Place of Birth (City / Country) / 出生地（市/国家）"><label for="bo2_placeOfBirth">Place of Birth (City / Country) <span class="zh">出生地（市/国家）</span><span class="req">*</span></label><input type="text" id="bo2_placeOfBirth" name="bo2_placeOfBirth" required="" placeholder=""></div><div class="field span-4" data-label="Nationality / 国籍"><label for="bo2_nationality">Nationality <span class="zh">国籍</span><span class="req">*</span></label><input type="text" id="bo2_nationality" name="bo2_nationality" required="" placeholder=""></div></div><div class="grid"><div class="field span-4" data-label="Gender / 性别"><label for="bo2_gender">Gender <span class="zh">性别</span><span class="req">*</span></label><select id="bo2_gender" name="bo2_gender" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Male 男">Male 男</option><option value="Female 女">Female 女</option></select></div><div class="field span-4" data-label="ID Card / Passport No. / 身份证/护照号码"><label for="bo2_idNumber">ID Card / Passport No. <span class="zh">身份证/护照号码</span><span class="req">*</span></label><input type="text" id="bo2_idNumber" name="bo2_idNumber" required="" placeholder=""></div><div class="field span-4" data-label="Place of Issue / 签发地点"><label for="bo2_placeOfIssue">Place of Issue <span class="zh">签发地点</span></label><input type="text" id="bo2_placeOfIssue" name="bo2_placeOfIssue" placeholder=""></div></div><div class="section-desc" style="margin-top:6px;">Permanent Residential Address * 永久居住地址（请勿使用邮政信箱）</div><div class="grid"><div class="field span-3" data-label="District / City / 区/市"><label for="bo2_permCity">District / City <span class="zh">区/市</span><span class="req">*</span></label><input type="text" id="bo2_permCity" name="bo2_permCity" required="" placeholder=""></div><div class="field span-3" data-label="Province / State / 省/州"><label for="bo2_permProvince">Province / State <span class="zh">省/州</span><span class="req">*</span></label><input type="text" id="bo2_permProvince" name="bo2_permProvince" required="" placeholder=""></div><div class="field span-3" data-label="Country / 国家"><label for="bo2_permCountry">Country <span class="zh">国家</span><span class="req">*</span></label><input type="text" id="bo2_permCountry" name="bo2_permCountry" required="" placeholder=""></div><div class="field span-3" data-label="Post Code / 邮编"><label for="bo2_permPostcode">Post Code <span class="zh">邮编</span></label><input type="text" id="bo2_permPostcode" name="bo2_permPostcode" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Mailing Address same as above? / 邮寄地址同上？"><label for="bo2_mailingSame">Mailing Address same as above? <span class="zh">邮寄地址同上？</span></label><select id="bo2_mailingSame" name="bo2_mailingSame" class="toggle-select" data-toggle-target="bo2_mailingBlock" data-show-when="no"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="yes">Yes 是</option><option value="no">No 否</option></select></div></div><div id="bo2_mailingBlock" hidden=""><div class="grid"><div class="field span-3" data-label="District / City / 区/市"><label for="bo2_mailCity">District / City <span class="zh">区/市</span></label><input type="text" id="bo2_mailCity" name="bo2_mailCity" placeholder=""></div><div class="field span-3" data-label="Province / State / 省/州"><label for="bo2_mailProvince">Province / State <span class="zh">省/州</span></label><input type="text" id="bo2_mailProvince" name="bo2_mailProvince" placeholder=""></div><div class="field span-3" data-label="Country / 国家"><label for="bo2_mailCountry">Country <span class="zh">国家</span></label><input type="text" id="bo2_mailCountry" name="bo2_mailCountry" placeholder=""></div><div class="field span-3" data-label="Post Code / 邮编"><label for="bo2_mailPostcode">Post Code <span class="zh">邮编</span></label><input type="text" id="bo2_mailPostcode" name="bo2_mailPostcode" placeholder=""></div></div></div><div class="grid"><div class="field span-6" data-label="Contact Tel. (Country Code + Number) / 联系电话（国家代码+号码）"><label for="bo2_phone">Contact Tel. (Country Code + Number) <span class="zh">联系电话（国家代码+号码）</span><span class="req">*</span></label><input type="tel" id="bo2_phone" name="bo2_phone" required="" placeholder=""></div><div class="field span-6" data-label="Email Address / 电子邮件地址"><label for="bo2_email">Email Address <span class="zh">电子邮件地址</span><span class="req">*</span></label><input type="email" id="bo2_email" name="bo2_email" required="" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Education / 教育背景"><label for="bo2_education">Education <span class="zh">教育背景</span><span class="req">*</span></label><select id="bo2_education" name="bo2_education" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Lower Secondary or below 初中及以下">Lower Secondary or below 初中及以下</option><option value="Upper Secondary 高中">Upper Secondary 高中</option><option value="Diploma / Certificate 大专">Diploma / Certificate 大专</option><option value="Tertiary or above 本科及以上">Tertiary or above 本科及以上</option></select></div></div></div><div class="section"><div class="section-head"><span class="section-badge">1B</span><h3>Marital Status<span class="zh">婚姻状况</span></h3></div><div class="grid"><div class="field span-12" data-label="Marital Status / 婚姻状况"><label for="bo2_maritalStatus">Marital Status <span class="zh">婚姻状况</span><span class="req">*</span></label><select id="bo2_maritalStatus" name="bo2_maritalStatus" required="" class="toggle-select" data-toggle-target="bo2_spouseBlock" data-show-when="Married 已婚"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Single 单身">Single 单身</option><option value="Married 已婚">Married 已婚</option><option value="Divorced 离婚">Divorced 离婚</option><option value="Widowed 丧偶">Widowed 丧偶</option></select></div></div><div id="bo2_spouseBlock" hidden=""><div class="section-desc">Complete if Married 如已婚请填写</div><div class="grid"><div class="field span-4" data-label="Spouse Name (Chinese) / 配偶中文姓名"><label for="bo2_spouseNameChinese">Spouse Name (Chinese) <span class="zh">配偶中文姓名</span></label><input type="text" id="bo2_spouseNameChinese" name="bo2_spouseNameChinese" placeholder=""></div><div class="field span-4" data-label="Spouse Surname (English) / 配偶英文姓氏"><label for="bo2_spouseSurname">Spouse Surname (English) <span class="zh">配偶英文姓氏</span></label><input type="text" id="bo2_spouseSurname" name="bo2_spouseSurname" placeholder=""></div><div class="field span-4" data-label="Spouse Given Names (English) / 配偶英文名字"><label for="bo2_spouseGivenNames">Spouse Given Names (English) <span class="zh">配偶英文名字</span></label><input type="text" id="bo2_spouseGivenNames" name="bo2_spouseGivenNames" placeholder=""></div></div><div class="grid"><div class="field span-6" data-label="Spouse Date of Birth / 配偶出生日期"><label for="bo2_spouseDob">Spouse Date of Birth <span class="zh">配偶出生日期</span></label><input type="date" id="bo2_spouseDob" name="bo2_spouseDob" placeholder=""></div><div class="field span-6" data-label="Spouse Occupation / 配偶职业"><label for="bo2_spouseOccupation">Spouse Occupation <span class="zh">配偶职业</span></label><input type="text" id="bo2_spouseOccupation" name="bo2_spouseOccupation" placeholder=""></div></div></div></div><div class="section"><div class="section-head"><span class="section-badge">2</span><h3>Employment Record<span class="zh">工作经历</span></h3></div><div class="grid"><div class="field span-12" data-label="Current Status / 目前工作状况"><label for="bo2_employmentStatus">Current Status <span class="zh">目前工作状况</span><span class="req">*</span></label><select id="bo2_employmentStatus" name="bo2_employmentStatus" required="" data-other="true"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Employed 就业">Employed 就业</option><option value="Self-employed 自雇">Self-employed 自雇</option><option value="Business Owner 企业主 (complete 2B)">Business Owner 企业主 (complete 2B)</option><option value="Retired 退休">Retired 退休</option><option value="Housewife 家庭主妇">Housewife 家庭主妇</option><option value="Others 其他">Others 其他</option></select><input type="text" class="other-box" id="bo2_employmentStatus_other" name="bo2_employmentStatus_other" placeholder="Please specify 请注明" hidden=""></div></div><div class="grid"><div class="field span-6" data-label="Employer / Company Name / 雇主/公司名称"><label for="bo2_employer">Employer / Company Name <span class="zh">雇主/公司名称</span></label><input type="text" id="bo2_employer" name="bo2_employer" placeholder=""></div><div class="field span-6" data-label="Job Title / Position / 职位"><label for="bo2_jobTitle">Job Title / Position <span class="zh">职位</span><span class="req">*</span></label><input type="text" id="bo2_jobTitle" name="bo2_jobTitle" required="" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Nature of Business / 业务性质"><label>Nature of Business <span class="zh">业务性质</span></label><div class="choice-group"><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Finance/Insurance 金融/保险"> Finance/Insurance 金融/保险</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Real Estate 房地产"> Real Estate 房地产</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Import/Export/Wholesale/Retail 进出口/批发/零售"> Import/Export/Wholesale/Retail 进出口/批发/零售</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Manufacturing 制造业"> Manufacturing 制造业</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Construction 建筑"> Construction 建筑</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Information/Communication 信息/通讯"> Information/Communication 信息/通讯</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Medical 医疗"> Medical 医疗</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Education 教育"> Education 教育</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Arts/Entertainment 艺术/娱乐"> Arts/Entertainment 艺术/娱乐</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Government/Public Admin 政府/公共管理"> Government/Public Admin 政府/公共管理</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Science/Technology 科技"> Science/Technology 科技</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Transport/Logistics 运输物流"> Transport/Logistics 运输物流</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Agriculture/Fisheries 农业/渔业"> Agriculture/Fisheries 农业/渔业</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Social Services 社会服务"> Social Services 社会服务</label><label class="choice"><input type="radio" name="bo2_natureOfBusinessEmp" value="Others 其他"> Others 其他 <input type="text" class="other-inline" id="bo2_natureOfBusinessEmp_other_Others" placeholder="Please specify 请注明" hidden=""></label></div></div></div><div class="grid"><div class="field span-6" data-label="Duration of Employment (YYYY/MM – YYYY/MM) / 任职期限"><label for="bo2_employmentDuration">Duration of Employment (YYYY/MM – YYYY/MM) <span class="zh">任职期限</span><span class="req">*</span></label><input type="text" id="bo2_employmentDuration" name="bo2_employmentDuration" required="" placeholder=""></div><div class="field span-6" data-label="Annual Salary (USD) / 年薪（美元）"><label for="bo2_annualSalary">Annual Salary (USD) <span class="zh">年薪（美元）</span></label><input type="number" id="bo2_annualSalary" name="bo2_annualSalary" placeholder=""></div></div></div><div class="section"><div class="section-head"><span class="section-badge">2B</span><h3>Business Owner Details<span class="zh">企业主请填写</span></h3></div><div class="section-desc">If not applicable, skip to Section 3 如不适用，请跳至第3节</div><div class="grid"><div class="field span-4" data-label="Company Name / 公司名称"><label for="bo2_bizName">Company Name <span class="zh">公司名称</span></label><input type="text" id="bo2_bizName" name="bo2_bizName" placeholder=""></div><div class="field span-4" data-label="Company Website / 公司主页"><label for="bo2_bizWebsite">Company Website <span class="zh">公司主页</span></label><input type="text" id="bo2_bizWebsite" name="bo2_bizWebsite" placeholder=""></div><div class="field span-4" data-label="Date of Incorporation / 成立日期"><label for="bo2_bizIncorpDate">Date of Incorporation <span class="zh">成立日期</span></label><input type="date" id="bo2_bizIncorpDate" name="bo2_bizIncorpDate" placeholder=""></div></div><div class="grid"><div class="field span-4" data-label="No. of Employees / 员工人数"><label for="bo2_bizEmployees">No. of Employees <span class="zh">员工人数</span></label><input type="number" id="bo2_bizEmployees" name="bo2_bizEmployees" placeholder=""></div><div class="field span-4" data-label="Annual Turnover (USD) / 年营业收入（美元）"><label for="bo2_bizTurnover">Annual Turnover (USD) <span class="zh">年营业收入（美元）</span></label><input type="number" id="bo2_bizTurnover" name="bo2_bizTurnover" placeholder=""></div><div class="field span-4" data-label="Net Profit p.a. (USD) / 年净利润（美元）"><label for="bo2_bizNetProfit">Net Profit p.a. (USD) <span class="zh">年净利润（美元）</span></label><input type="number" id="bo2_bizNetProfit" name="bo2_bizNetProfit" placeholder=""></div></div><div class="grid"><div class="field span-12" data-label="Business Activities / Products &amp; Services / 主营业务/产品与服务"><label for="bo2_bizActivities">Business Activities / Products &amp; Services <span class="zh">主营业务/产品与服务</span></label><textarea id="bo2_bizActivities" name="bo2_bizActivities" rows="2" placeholder=""></textarea></div></div><div class="grid"><div class="field span-12" data-label="Source of Seed Capital &amp; How Business Grew / 种子资金来源及业务发展历程"><label for="bo2_bizSeedCapital">Source of Seed Capital &amp; How Business Grew <span class="zh">种子资金来源及业务发展历程</span></label><textarea id="bo2_bizSeedCapital" name="bo2_bizSeedCapital" rows="2" placeholder=""></textarea></div></div><div class="grid"><div class="field span-6" data-label="Owner / Main Shareholders &amp; Stake (%) / 主要股东及持股比例"><label for="bo2_bizOwners">Owner / Main Shareholders &amp; Stake (%) <span class="zh">主要股东及持股比例</span></label><textarea id="bo2_bizOwners" name="bo2_bizOwners" rows="2" placeholder=""></textarea></div><div class="field span-6" data-label="Annual Income from Business (Salary + Dividends, USD) / 年收入（薪资+股息）"><label for="bo2_bizAnnualIncome">Annual Income from Business (Salary + Dividends, USD) <span class="zh">年收入（薪资+股息）</span></label><input type="number" id="bo2_bizAnnualIncome" name="bo2_bizAnnualIncome" placeholder=""></div></div></div><div class="section"><div class="section-head"><span class="section-badge">3</span><h3>Financial Status<span class="zh">财务状况</span></h3></div><div class="grid"><div class="field span-12" data-required-group="true" data-label="Source of Capital / Wealth / 资金/财富来源"><label>Source of Capital / Wealth <span class="zh">资金/财富来源</span><span class="req">*</span></label><div class="choice-group"><label class="choice"><input type="checkbox" name="bo2_sourceOfCapital" value="Salary 薪资"> Salary 薪资</label><label class="choice"><input type="checkbox" name="bo2_sourceOfCapital" value="Business Revenue 营业收入"> Business Revenue 营业收入</label><label class="choice"><input type="checkbox" name="bo2_sourceOfCapital" value="Investment Return 投资回报"> Investment Return 投资回报</label><label class="choice"><input type="checkbox" name="bo2_sourceOfCapital" value="Dividends/Interest 股息/利息"> Dividends/Interest 股息/利息</label><label class="choice"><input type="checkbox" name="bo2_sourceOfCapital" value="Rent 租金"> Rent 租金</label><label class="choice"><input type="checkbox" name="bo2_sourceOfCapital" value="Pension 养老金"> Pension 养老金</label><label class="choice"><input type="checkbox" name="bo2_sourceOfCapital" value="Savings 储蓄"> Savings 储蓄</label><label class="choice"><input type="checkbox" name="bo2_sourceOfCapital" value="Others 其他"> Others 其他 <input type="text" class="other-inline" id="bo2_sourceOfCapital_other_Others" placeholder="Please specify 请注明" hidden=""></label></div></div></div><div class="grid"><div class="field span-12" data-label="Annual Income (USD) / 年收入（美元）"><label for="bo2_annualIncome">Annual Income (USD) <span class="zh">年收入（美元）</span><span class="req">*</span></label><select id="bo2_annualIncome" name="bo2_annualIncome" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="≤30,000">≤30,000</option><option value="30,001–70,000">30,001–70,000</option><option value="70,001–150,000">70,001–150,000</option><option value="150,001–250,000">150,001–250,000</option><option value="&gt;250,000">&gt;250,000</option></select></div></div><div class="grid"><div class="field span-12" data-label="Origin of Capital / Wealth / 资本/财富的起源地"><label for="bo2_originOfCapital">Origin of Capital / Wealth <span class="zh">资本/财富的起源地</span><span class="req">*</span></label><select id="bo2_originOfCapital" name="bo2_originOfCapital" required="" data-other="true"><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="Hong Kong 香港">Hong Kong 香港</option><option value="Mainland China 中国大陆">Mainland China 中国大陆</option><option value="Others 其他">Others 其他</option></select><input type="text" class="other-box" id="bo2_originOfCapital_other" name="bo2_originOfCapital_other" placeholder="Please specify 请注明" hidden=""></div></div><div class="grid"><div class="field span-12" data-label="Assets Held / 资产类型"><label for="bo2_assetsHeld">Assets Held <span class="zh">资产类型</span></label><select id="bo2_assetsHeld" name="bo2_assetsHeld" multiple="" size="5" data-other="true"><option value="Real Estate 房地产">Real Estate 房地产</option><option value="Cash/Savings 现金/储蓄">Cash/Savings 现金/储蓄</option><option value="Listed Securities 上市证券">Listed Securities 上市证券</option><option value="Bonds 债券">Bonds 债券</option><option value="Others 其他">Others 其他</option></select><div class="multi-hint">Hold Ctrl / Cmd (or tap multiple) to select more than one 按住 Ctrl/Cmd 可多选</div><input type="text" class="other-box" id="bo2_assetsHeld_other" name="bo2_assetsHeld_other" placeholder="Please specify 请注明" hidden=""></div></div><div class="grid"><div class="field span-6" data-label="Bank Deposits &amp; Listed Securities Value (USD) — state bank names / 银行存款及上市证券市值（请注明银行）"><label for="bo2_bankSecuritiesValue">Bank Deposits &amp; Listed Securities Value (USD) — state bank names <span class="zh">银行存款及上市证券市值（请注明银行）</span></label><textarea id="bo2_bankSecuritiesValue" name="bo2_bankSecuritiesValue" rows="2" placeholder=""></textarea></div><div class="field span-6" data-label="Real Estate Value (USD) &amp; Address(es) / 房地产估值及地址"><label for="bo2_realEstateValue">Real Estate Value (USD) &amp; Address(es) <span class="zh">房地产估值及地址</span></label><textarea id="bo2_realEstateValue" name="bo2_realEstateValue" rows="2" placeholder=""></textarea></div></div><div class="grid"><div class="field span-12" data-label="Estimated Net Worth (USD) / 预估净资产（美元）"><label for="bo2_netWorth">Estimated Net Worth (USD) <span class="zh">预估净资产（美元）</span><span class="req">*</span></label><select id="bo2_netWorth" name="bo2_netWorth" required=""><option value="" disabled="" selected="">-- Select 请选择 --</option><option value="1,000,000–2,000,000">1,000,000–2,000,000</option><option value="2,000,001–5,000,000">2,000,001–5,000,000</option><option value="5,000,001–10,000,000">5,000,001–10,000,000</option><option value="10,000,001–15,000,000">10,000,001–15,000,000</option><option value="&gt;15,000,000">&gt;15,000,000</option></select></div></div></div></div></div></div></div><div class="section"><div class="section-head"><span class="section-badge">E3</span><h3>Relationship Manager Certification<span class="zh">客户关系经理确认</span></h3></div><div class="info-box">I confirm that I have sighted, acknowledged, and certified the particulars and documents provided by the Client:<span class="zh">我确认已看到、承认并证明客户提供的个人资料及以下文件：</span></div><div class="grid"><div class="field span-12" data-label="Documents Sighted / 已核实文件"><label>Documents Sighted <span class="zh">已核实文件</span></label><div class="choice-group"><label class="choice"><input type="checkbox" name="e_rmDocs" value="Identity Document 身份证明文件"> Identity Document 身份证明文件</label><label class="choice"><input type="checkbox" name="e_rmDocs" value="Client Information Statement 客户信息声明（个人）"> Client Information Statement 客户信息声明（个人）</label><label class="choice"><input type="checkbox" name="e_rmDocs" value="Address Proof 地址证明"> Address Proof 地址证明</label><label class="choice"><input type="checkbox" name="e_rmDocs" value="Asset Proof 资产证明"> Asset Proof 资产证明</label><label class="choice"><input type="checkbox" name="e_rmDocs" value="Certificate of Incorporation 公司注册证书"> Certificate of Incorporation 公司注册证书</label><label class="choice"><input type="checkbox" name="e_rmDocs" value="Authorised Signatory List 授权签署人名单"> Authorised Signatory List 授权签署人名单</label></div></div></div><div class="grid"><div class="field span-4" data-label="RM Name / 关系经理姓名"><label for="e_rmName">RM Name <span class="zh">关系经理姓名</span></label><input type="text" id="e_rmName" name="e_rmName" placeholder=""></div><div class="field span-4" data-label="SFC CE Number / 证监会CE编号"><label for="e_rmCE">SFC CE Number <span class="zh">证监会CE编号</span></label><input type="text" id="e_rmCE" name="e_rmCE" placeholder=""></div><div class="field span-4" data-label="Date / 日期"><label for="e_rmDate">Date <span class="zh">日期</span></label><input type="date" id="e_rmDate" name="e_rmDate" placeholder=""></div></div><div class="grid"><div class="field span-12"><label>RM Signature <span class="zh">关系经理签名</span></label><div class="sig-wrap"><canvas class="sig-pad" id="e_signature" width="520" height="120" data-wired="true"></canvas></div><div class="sig-actions"><button type="button" class="btn btn-sm no-print" onclick="clearSignature(&#39;e_signature&#39;)">Clear 清除</button></div></div></div></div></form>
+      <div class="action-bar">
+        <span id="entityValidateMsg" class="validate-msg"></span>
+        <div class="toolbar no-print">
+          <button class="btn" onclick="checkForm()">Check required fields</button>
+          <button class="btn btn-primary" onclick="exportPDF()">Download PDF</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">Powered by Wind Rose Holding Limited. All information collected is for internal KYC / onboarding use only.</footer>
+
+<div id="toast" class="">HTML file downloaded — reopen it in any browser to keep editing.</div>
+
+<script>
+/* =========================================================================
+   OPTION SETS
+   ========================================================================= */
+const OPT = {
+  entityNature: ['Listed Company 上市公司','Unlisted Limited Company 非上市公司','Sole Partnership 个人合伙','Partnership 合伙企业','Trust 信托','Others 其他'],
+  usPerson: ['Non-US 非美国','US 美国'],
+  yesNo: ['Yes 是','No 否'],
+  gender: ['Male 男','Female 女'],
+  education: ['Lower Secondary or below 初中及以下','Upper Secondary 高中','Diploma / Certificate 大专','Tertiary or above 本科及以上'],
+  maritalStatus: ['Single 单身','Married 已婚','Divorced 离婚','Widowed 丧偶'],
+  employmentStatus: ['Employed 就业','Self-employed 自雇','Business Owner 企业主 (complete 2B)','Retired 退休','Housewife 家庭主妇','Others 其他'],
+  natureOfBusiness: ['Finance/Insurance 金融/保险','Real Estate 房地产','Import/Export/Wholesale/Retail 进出口/批发/零售','Manufacturing 制造业','Construction 建筑','Information/Communication 信息/通讯','Medical 医疗','Education 教育','Arts/Entertainment 艺术/娱乐','Government/Public Admin 政府/公共管理','Science/Technology 科技','Transport/Logistics 运输物流','Agriculture/Fisheries 农业/渔业','Social Services 社会服务','Others 其他'],
+  sourceOfCapital: ['Salary 薪资','Business Revenue 营业收入','Investment Return 投资回报','Dividends/Interest 股息/利息','Rent 租金','Pension 养老金','Savings 储蓄','Others 其他'],
+  annualIncome: ['≤30,000','30,001–70,000','70,001–150,000','150,001–250,000','>250,000'],
+  originOfCapital: ['Hong Kong 香港','Mainland China 中国大陆','Others 其他'],
+  assetsHeld: ['Real Estate 房地产','Cash/Savings 现金/储蓄','Listed Securities 上市证券','Bonds 债券','Others 其他'],
+  netWorth: ['1,000,000–2,000,000','2,000,001–5,000,000','5,000,001–10,000,000','10,000,001–15,000,000','>15,000,000'],
+  accountType: ['Individual Account 个人账户','Joint Account (Connected Person) 联名账户（关联人）','Beneficial Owner 法人实体受益人'],
+  rmDocsIndividual: ['Identity Document 身份证明文件','Address Proof 地址证明','Asset Proof 资产证明'],
+  rmDocsEntity: ['Identity Document 身份证明文件','Client Information Statement 客户信息声明（个人）','Address Proof 地址证明','Asset Proof 资产证明','Certificate of Incorporation 公司注册证书','Authorised Signatory List 授权签署人名单']
+};
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* =========================================================================
+   FIELD RENDERERS
+   ========================================================================= */
+function field(f, prefix){
+  const id = prefix+'_'+f.name;
+  const req = f.required ? '<span class="req">*</span>' : '';
+  let control;
+  const type = f.type || 'text';
+
+  if(type === 'select' || type === 'multiselect'){
+    const multi = type === 'multiselect';
+    control = '<select id="'+id+'" name="'+id+'"'+(f.required?' required':'')+(multi?' multiple size="'+Math.min(f.options.length,5)+'"':'')+(f.other?' data-other="true"':'')+'>';
+    if(!multi) control += '<option value="" disabled selected>-- Select 请选择 --</option>';
+    f.options.forEach(o=>{ control += '<option value="'+esc(o)+'">'+esc(o)+'</option>'; });
+    control += '</select>';
+    if(multi) control += '<div class="multi-hint">Hold Ctrl / Cmd (or tap multiple) to select more than one 按住 Ctrl/Cmd 可多选</div>';
+    if(f.other) control += '<input type="text" class="other-box" id="'+id+'_other" name="'+id+'_other" placeholder="Please specify 请注明" hidden>';
+  } else if(type === 'radio' || type === 'checkboxgroup'){
+    const inputType = type === 'radio' ? 'radio' : 'checkbox';
+    control = '<div class="choice-group">';
+    f.options.forEach(o=>{
+      const isOther = o.indexOf('Others') === 0;
+      control += '<label class="choice"><input type="'+inputType+'" name="'+id+'" value="'+esc(o)+'"'+(f.required && inputType==='radio' ? ' required' : '')+'> '+esc(o)
+        + (isOther && f.other ? ' <input type="text" class="other-inline" id="'+id+'_other_'+o.replace(/[^a-zA-Z0-9]/g,'')+'" placeholder="Please specify 请注明" hidden>' : '')
+        + '</label>';
+    });
+    control += '</div>';
+  } else if(type === 'toggle'){
+    control = '<select id="'+id+'" name="'+id+'" class="toggle-select" data-toggle-target="'+prefix+'_'+f.target+'" data-show-when="'+f.showWhen+'"'+(f.required?' required':'')+'>';
+    control += '<option value="" disabled selected>-- Select 请选择 --</option>';
+    control += '<option value="yes">'+(f.yesLabel||'Yes 是')+'</option><option value="no">'+(f.noLabel||'No 否')+'</option>';
+    control += '</select>';
+  } else if(type === 'textarea'){
+    control = '<textarea id="'+id+'" name="'+id+'" rows="'+(f.rows||2)+'"'+(f.required?' required':'')+' placeholder="'+esc(f.placeholder||'')+'"></textarea>';
+  } else {
+    control = '<input type="'+type+'" id="'+id+'" name="'+id+'"'+(f.required?' required':'')+' placeholder="'+esc(f.placeholder||'')+'">';
+  }
+
+  const isGroup = (type === 'radio' || type === 'checkboxgroup');
+  return '<div class="field span-'+(f.span||4)+'"'+(type==='checkboxgroup' && f.required ? ' data-required-group="true"' : '')+' data-label="'+esc(f.labelEn+(f.labelZh?(' / '+f.labelZh):''))+'">'
+    + '<label'+(isGroup?'':' for="'+id+'"')+'>'+esc(f.labelEn)+(f.labelZh?' <span class="zh">'+esc(f.labelZh)+'</span>':'')+req+'</label>'
+    + control + '</div>';
+}
+
+function row(fields, prefix){
+  return '<div class="grid">' + fields.map(f=>field(f,prefix)).join('') + '</div>';
+}
+
+function sectionHead(code, titleEn, titleZh){
+  return '<div class="section-head"><span class="section-badge">'+code+'</span><h3>'+esc(titleEn)+'<span class="zh">'+esc(titleZh)+'</span></h3></div>';
+}
+
+function sigPad(prefix, labelEn, labelZh){
+  const id = prefix+'_signature';
+  return '<div class="field span-12">'
+    + '<label>'+esc(labelEn)+' <span class="zh">'+esc(labelZh)+'</span></label>'
+    + '<div class="sig-wrap"><canvas class="sig-pad" id="'+id+'" width="520" height="120"></canvas></div>'
+    + '<div class="sig-actions"><button type="button" class="btn btn-sm no-print" onclick="clearSignature(\''+id+'\')">Clear 清除</button><span class="sig-label">Draw signature above with mouse or finger 请在上方用鼠标或手指签署</span></div>'
+    + '</div>';
+}
+
+/* =========================================================================
+   INDIVIDUAL FORM TEMPLATE (reused standalone / joint / beneficial owner)
+   ========================================================================= */
+function individualSectionsHTML(prefix, opts){
+  opts = opts || {};
+  let html = '';
+
+  if(opts.showAccountType){
+    html += '<div class="section">'
+      + row([{name:'accountType', type:'select', labelEn:'Account Type', labelZh:'账户类型', options:OPT.accountType, required:true}], prefix)
+      + '</div>';
+  }
+
+  // 1. Personal Particulars
+  html += '<div class="section">';
+  html += sectionHead('1', 'Personal Particulars', '个人资料');
+  html += row([
+    {name:'nameChinese', labelEn:'Name (Chinese)', labelZh:'中文姓名', required:true, span:4},
+    {name:'surname', labelEn:'Surname', labelZh:'英文姓氏', required:true, span:4},
+    {name:'givenNames', labelEn:'Given Names', labelZh:'英文名字', required:true, span:4}
+  ], prefix);
+  html += row([
+    {name:'dob', type:'date', labelEn:'Date of Birth', labelZh:'出生日期', required:true, span:4},
+    {name:'placeOfBirth', labelEn:'Place of Birth (City / Country)', labelZh:'出生地（市/国家）', required:true, span:4},
+    {name:'nationality', labelEn:'Nationality', labelZh:'国籍', required:true, span:4}
+  ], prefix);
+  html += row([
+    {name:'gender', type:'select', labelEn:'Gender', labelZh:'性别', options:OPT.gender, required:true, span:4},
+    {name:'idNumber', labelEn:'ID Card / Passport No.', labelZh:'身份证/护照号码', required:true, span:4},
+    {name:'placeOfIssue', labelEn:'Place of Issue', labelZh:'签发地点', span:4}
+  ], prefix);
+
+  html += '<div class="section-desc" style="margin-top:6px;">Permanent Residential Address * 永久居住地址（请勿使用邮政信箱）</div>';
+  html += row([
+    {name:'permCity', labelEn:'District / City', labelZh:'区/市', required:true, span:3},
+    {name:'permProvince', labelEn:'Province / State', labelZh:'省/州', required:true, span:3},
+    {name:'permCountry', labelEn:'Country', labelZh:'国家', required:true, span:3},
+    {name:'permPostcode', labelEn:'Post Code', labelZh:'邮编', span:3}
+  ], prefix);
+
+  html += row([{name:'mailingSame', type:'toggle', labelEn:'Mailing Address same as above?', labelZh:'邮寄地址同上？', target:'mailingBlock', showWhen:'no', span:12}], prefix);
+  html += '<div id="'+prefix+'_mailingBlock" hidden>';
+  html += row([
+    {name:'mailCity', labelEn:'District / City', labelZh:'区/市', span:3},
+    {name:'mailProvince', labelEn:'Province / State', labelZh:'省/州', span:3},
+    {name:'mailCountry', labelEn:'Country', labelZh:'国家', span:3},
+    {name:'mailPostcode', labelEn:'Post Code', labelZh:'邮编', span:3}
+  ], prefix);
+  html += '</div>';
+
+  html += row([
+    {name:'phone', type:'tel', labelEn:'Contact Tel. (Country Code + Number)', labelZh:'联系电话（国家代码+号码）', required:true, span:6},
+    {name:'email', type:'email', labelEn:'Email Address', labelZh:'电子邮件地址', required:true, span:6}
+  ], prefix);
+  html += row([{name:'education', type:'select', labelEn:'Education', labelZh:'教育背景', options:OPT.education, required:true, span:12}], prefix);
+  html += '</div>';
+
+  // 1B Marital Status
+  html += '<div class="section">';
+  html += sectionHead('1B', 'Marital Status', '婚姻状况');
+  html += '<div class="grid"><div class="field span-12" data-label="Marital Status / 婚姻状况">'
+    + '<label for="'+prefix+'_maritalStatus">Marital Status <span class="zh">婚姻状况</span><span class="req">*</span></label>'
+    + '<select id="'+prefix+'_maritalStatus" name="'+prefix+'_maritalStatus" required class="toggle-select" data-toggle-target="'+prefix+'_spouseBlock" data-show-when="Married 已婚">'
+    + '<option value="" disabled selected>-- Select 请选择 --</option>'
+    + OPT.maritalStatus.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join('')
+    + '</select></div></div>';
+  html += '<div id="'+prefix+'_spouseBlock" hidden>';
+  html += '<div class="section-desc">Complete if Married 如已婚请填写</div>';
+  html += row([
+    {name:'spouseNameChinese', labelEn:'Spouse Name (Chinese)', labelZh:'配偶中文姓名', span:4},
+    {name:'spouseSurname', labelEn:'Spouse Surname (English)', labelZh:'配偶英文姓氏', span:4},
+    {name:'spouseGivenNames', labelEn:'Spouse Given Names (English)', labelZh:'配偶英文名字', span:4}
+  ], prefix);
+  html += row([
+    {name:'spouseDob', type:'date', labelEn:'Spouse Date of Birth', labelZh:'配偶出生日期', span:6},
+    {name:'spouseOccupation', labelEn:'Spouse Occupation', labelZh:'配偶职业', span:6}
+  ], prefix);
+  html += '</div></div>';
+
+  // 2 Employment Record
+  html += '<div class="section">';
+  html += sectionHead('2', 'Employment Record', '工作经历');
+  html += row([{name:'employmentStatus', type:'select', labelEn:'Current Status', labelZh:'目前工作状况', options:OPT.employmentStatus, required:true, other:true, span:12}], prefix);
+  html += row([
+    {name:'employer', labelEn:'Employer / Company Name', labelZh:'雇主/公司名称', span:6},
+    {name:'jobTitle', labelEn:'Job Title / Position', labelZh:'职位', required:true, span:6}
+  ], prefix);
+  html += row([{name:'natureOfBusinessEmp', type:'radio', labelEn:'Nature of Business', labelZh:'业务性质', options:OPT.natureOfBusiness, other:true, span:12}], prefix);
+  html += row([
+    {name:'employmentDuration', labelEn:'Duration of Employment (YYYY/MM – YYYY/MM)', labelZh:'任职期限', required:true, span:6},
+    {name:'annualSalary', type:'number', labelEn:'Annual Salary (USD)', labelZh:'年薪（美元）', span:6}
+  ], prefix);
+  html += '</div>';
+
+  // 2B Business Owner
+  html += '<div class="section">';
+  html += sectionHead('2B', 'Business Owner Details', '企业主请填写');
+  html += '<div class="section-desc">If not applicable, skip to Section 3 如不适用，请跳至第3节</div>';
+  html += row([
+    {name:'bizName', labelEn:'Company Name', labelZh:'公司名称', span:4},
+    {name:'bizWebsite', labelEn:'Company Website', labelZh:'公司主页', span:4},
+    {name:'bizIncorpDate', type:'date', labelEn:'Date of Incorporation', labelZh:'成立日期', span:4}
+  ], prefix);
+  html += row([
+    {name:'bizEmployees', type:'number', labelEn:'No. of Employees', labelZh:'员工人数', span:4},
+    {name:'bizTurnover', type:'number', labelEn:'Annual Turnover (USD)', labelZh:'年营业收入（美元）', span:4},
+    {name:'bizNetProfit', type:'number', labelEn:'Net Profit p.a. (USD)', labelZh:'年净利润（美元）', span:4}
+  ], prefix);
+  html += row([{name:'bizActivities', type:'textarea', labelEn:'Business Activities / Products & Services', labelZh:'主营业务/产品与服务', span:12}], prefix);
+  html += row([{name:'bizSeedCapital', type:'textarea', labelEn:'Source of Seed Capital & How Business Grew', labelZh:'种子资金来源及业务发展历程', span:12}], prefix);
+  html += row([
+    {name:'bizOwners', type:'textarea', labelEn:'Owner / Main Shareholders & Stake (%)', labelZh:'主要股东及持股比例', span:6},
+    {name:'bizAnnualIncome', type:'number', labelEn:'Annual Income from Business (Salary + Dividends, USD)', labelZh:'年收入（薪资+股息）', span:6}
+  ], prefix);
+  html += '</div>';
+
+  // 3 Financial Status
+  html += '<div class="section">';
+  html += sectionHead('3', 'Financial Status', '财务状况');
+  html += row([{name:'sourceOfCapital', type:'checkboxgroup', labelEn:'Source of Capital / Wealth', labelZh:'资金/财富来源', options:OPT.sourceOfCapital, required:true, other:true, span:12}], prefix);
+  html += row([{name:'annualIncome', type:'select', labelEn:'Annual Income (USD)', labelZh:'年收入（美元）', options:OPT.annualIncome, required:true, span:12}], prefix);
+  html += row([{name:'originOfCapital', type:'select', labelEn:'Origin of Capital / Wealth', labelZh:'资本/财富的起源地', options:OPT.originOfCapital, required:true, other:true, span:12}], prefix);
+  html += row([{name:'assetsHeld', type:'multiselect', labelEn:'Assets Held', labelZh:'资产类型', options:OPT.assetsHeld, other:true, span:12}], prefix);
+  html += row([
+    {name:'bankSecuritiesValue', type:'textarea', labelEn:'Bank Deposits & Listed Securities Value (USD) — state bank names', labelZh:'银行存款及上市证券市值（请注明银行）', span:6},
+    {name:'realEstateValue', type:'textarea', labelEn:'Real Estate Value (USD) & Address(es)', labelZh:'房地产估值及地址', span:6}
+  ], prefix);
+  html += row([{name:'netWorth', type:'select', labelEn:'Estimated Net Worth (USD)', labelZh:'预估净资产（美元）', options:OPT.netWorth, required:true, span:12}], prefix);
+  html += '</div>';
+
+  // 4 RM Certification (skipped for beneficial-owner sub-forms inside an Entity submission —
+  // those are covered by the single E3 certification at the end of the Entity form)
+  if(!opts.hideRMCert){
+    html += '<div class="section">';
+    html += sectionHead('4', 'Relationship Manager Certification', '客户关系经理确认');
+    html += '<div class="info-box">I confirm that I have sighted, acknowledged, and certified the personal particulars and documents provided by the Client:<span class="zh">我确认已看到、承认并证明客户提供的个人资料及以下文件：</span></div>';
+    html += row([{name:'rmDocs', type:'checkboxgroup', labelEn:'Documents Sighted', labelZh:'已核实文件', options:OPT.rmDocsIndividual, span:12}], prefix);
+    html += row([
+      {name:'rmName', labelEn:'RM Name', labelZh:'关系经理姓名', span:4},
+      {name:'rmCE', labelEn:'SFC CE Number', labelZh:'证监会CE编号', span:4},
+      {name:'rmDate', type:'date', labelEn:'Date', labelZh:'日期', span:4}
+    ], prefix);
+    html += '<div class="grid">'+sigPad(prefix, 'RM Signature', '关系经理签名')+'</div>';
+    html += '</div>';
+  }
+
+  return html;
+}
+
+/* =========================================================================
+   TOP-LEVEL RENDER: INDIVIDUAL SCREEN
+   ========================================================================= */
+let jointCount = 0;
+
+function startIndividual(){
+  document.getElementById('landing').classList.add('hidden');
+  document.getElementById('individualScreen').classList.remove('hidden');
+  document.getElementById('entityScreen').classList.add('hidden');
+  document.getElementById('toolbar').classList.remove('hidden');
+  const formEl = document.getElementById('individualForm');
+  if(!formEl.dataset.rendered){
+    formEl.innerHTML = individualSectionsHTML('p1', {showAccountType:true});
+    formEl.dataset.rendered = 'true';
+    initSignaturePads(formEl);
+  }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function addJointHolder(){
+  jointCount++;
+  const prefix = 'jt'+jointCount;
+  const wrap = document.createElement('div');
+  wrap.className = 'card repeat-block';
+  wrap.style.marginTop = '18px';
+  wrap.innerHTML = '<div class="repeat-title" style="display:flex;justify-content:space-between;align-items:center;">'
+    + '<span>Joint Account Holder '+jointCount+' 联名账户持有人 '+jointCount+'</span>'
+    + '<button type="button" class="btn btn-sm btn-danger no-print" onclick="this.closest(\'.repeat-block\').remove()">Remove 移除</button></div>'
+    + individualSectionsHTML(prefix, {showAccountType:false});
+  document.getElementById('jointHoldersContainer').appendChild(wrap);
+  initSignaturePads(wrap);
+}
+
+/* toggle "add joint holder" button visibility based on account type of primary holder */
+document.addEventListener('change', function(e){
+  if(e.target.id === 'p1_accountType'){
+    const wrap = document.getElementById('jointAddWrap');
+    wrap.hidden = e.target.value.indexOf('Joint') === -1;
+  }
+});
+
+/* =========================================================================
+   ENTITY FORM
+   ========================================================================= */
+let directorCount = 0;
+let boCount = 0;
+
+function entityCoreHTML(){
+  let html = '';
+  html += '<div class="section">';
+  html += sectionHead('E1', 'General Information of Entity', '法人实体的一般信息');
+  html += row([
+    {name:'entityName', labelEn:'Entity Name', labelZh:'法人实体名称', required:true, span:6},
+    {name:'certNo', labelEn:'Certificate of Incorporation No.', labelZh:'公司注册证书编号', required:true, span:6}
+  ], 'e');
+  html += row([{name:'entityNature', type:'select', labelEn:'Nature of Entity', labelZh:'法人实体的性质', options:OPT.entityNature, required:true, other:true, span:12}], 'e');
+  html += row([
+    {name:'countryIncorp', labelEn:'Country of Incorporation', labelZh:'注册国家', required:true, span:4},
+    {name:'principalPlace', labelEn:'Principal Place of Business', labelZh:'主要营业地点', required:true, span:4},
+    {name:'countryOrdinary', labelEn:'Country of Ordinary Business', labelZh:'业务所在国家/地区', required:true, span:4}
+  ], 'e');
+  html += row([{name:'usPerson', type:'select', labelEn:'US Person?', labelZh:'是否为美国人', options:OPT.usPerson, required:true, span:12}], 'e');
+
+  html += '<div class="section-desc" style="margin-top:6px;">Registered Address * 注册地址</div>';
+  html += row([
+    {name:'regCity', labelEn:'City / District', labelZh:'区/市', required:true, span:3},
+    {name:'regProvince', labelEn:'Province / State', labelZh:'省/州', required:true, span:3},
+    {name:'regCountry', labelEn:'Country', labelZh:'国家', required:true, span:3},
+    {name:'regPostcode', labelEn:'Post Code', labelZh:'邮编', span:3}
+  ], 'e');
+
+  html += row([{name:'corrSame', type:'toggle', labelEn:'Correspondence Address same as Registered Address?', labelZh:'通讯地址同注册地址？', target:'corrBlock', showWhen:'no', span:12}], 'e');
+  html += '<div id="e_corrBlock" hidden>';
+  html += row([
+    {name:'corrCity', labelEn:'City / District', labelZh:'区/市', span:3},
+    {name:'corrProvince', labelEn:'Province / State', labelZh:'省/州', span:3},
+    {name:'corrCountry', labelEn:'Country', labelZh:'国家', span:3},
+    {name:'corrPostcode', labelEn:'Post Code', labelZh:'邮编', span:3}
+  ], 'e');
+  html += '</div>';
+
+  html += row([{name:'natureOfBiz', labelEn:'Nature of Business', labelZh:'业务性质', span:12}], 'e');
+  html += '</div>';
+
+  // E1B Directors
+  html += '<div class="section">';
+  html += sectionHead('E1B', 'Director(s) Details', '董事详细信息');
+  html += '<div class="section-desc">Add rows if more than one director 如有多名董事请增加行数</div>';
+  html += '<div id="directorsContainer"></div>';
+  html += '<button type="button" class="btn add-row-btn no-print" onclick="addDirector()">+ Add director 添加董事</button>';
+  html += '</div>';
+
+  // Definition of BO
+  html += '<div class="section">';
+  html += sectionHead('', 'Definition of Beneficial Owner', '受益人定义');
+  html += '<div class="info-box">A Beneficial Owner is any individual who: (a) owns/controls &ge;25% of issued share capital or voting rights; (b) exercises ultimate control over management; or (c) is a settlor/beneficiary with &ge;25% interest in an underlying trust, or exercises ultimate effective control over such trust.'
+    + '<span class="zh">受益人是指以下任何个人：(a) 直接或间接拥有/控制不少于25%的已发行股本或表决权；(b) 对管理层行使最终控制权；或 (c) 作为委托人/受益人拥有信托不少于25%的权益，或对信托行使最终有效控制权。</span></div>';
+  html += row([{name:'uboCount', type:'number', labelEn:'Number of Ultimate Beneficial Owners (UBOs)', labelZh:'受益人人数', required:true, span:6, placeholder:'e.g. 2'}], 'e');
+  html += '<div class="section-desc">Complete one sub-section below per UBO 每位受益人填写一个子节</div>';
+  html += '</div>';
+
+  // E2 BO container
+  html += '<div class="section">';
+  html += sectionHead('E2', 'Beneficial Owner — Personal Particulars', '受益人 — 个人资料');
+  html += '<div class="section-desc">Each beneficial owner should complete the Client Information Statement (Individual). Documents sighted and RM signature for all beneficial owners are certified once, together, in Section E3 below. 每位受益人須填写一份客户信息声明（个人)。所有受益人的文件核实及关系经理签名将于下方E3部分统一确认。</div>';
+  html += '<div id="boContainer"></div>';
+  html += '</div>';
+
+  // E3 RM cert
+  html += '<div class="section">';
+  html += sectionHead('E3', 'Relationship Manager Certification', '客户关系经理确认');
+  html += '<div class="info-box">I confirm that I have sighted, acknowledged, and certified the particulars and documents provided by the Client:<span class="zh">我确认已看到、承认并证明客户提供的个人资料及以下文件：</span></div>';
+  html += row([{name:'rmDocs', type:'checkboxgroup', labelEn:'Documents Sighted', labelZh:'已核实文件', options:OPT.rmDocsEntity, span:12}], 'e');
+  html += row([
+    {name:'rmName', labelEn:'RM Name', labelZh:'关系经理姓名', span:4},
+    {name:'rmCE', labelEn:'SFC CE Number', labelZh:'证监会CE编号', span:4},
+    {name:'rmDate', type:'date', labelEn:'Date', labelZh:'日期', span:4}
+  ], 'e');
+  html += '<div class="grid">'+sigPad('e', 'RM Signature', '关系经理签名')+'</div>';
+  html += '</div>';
+
+  return html;
+}
+
+function startEntity(){
+  document.getElementById('landing').classList.add('hidden');
+  document.getElementById('entityScreen').classList.remove('hidden');
+  document.getElementById('individualScreen').classList.add('hidden');
+  document.getElementById('toolbar').classList.remove('hidden');
+  const formEl = document.getElementById('entityForm');
+  if(!formEl.dataset.rendered){
+    formEl.innerHTML = entityCoreHTML();
+    formEl.dataset.rendered = 'true';
+    addDirector(); // start with one director row
+    initSignaturePads(formEl);
+  }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function addDirector(){
+  directorCount++;
+  const prefix = 'dir'+directorCount;
+  const wrap = document.createElement('div');
+  wrap.className = 'repeat-block';
+  wrap.innerHTML = '<div class="repeat-title">Director '+directorCount+' 董事 '+directorCount+'</div>'
+    + (directorCount>1 ? '<button type="button" class="btn btn-sm btn-danger no-print remove-btn" onclick="this.closest(\'.repeat-block\').remove()">Remove 移除</button>' : '')
+    + row([
+        {name:'name', labelEn:'Director Name', labelZh:'董事姓名', required:true, span:5},
+        {name:'idNumber', labelEn:'HKID / Passport No.', labelZh:'香港身份证/护照号码', required:true, span:4},
+        {name:'contact', labelEn:'Contact Number', labelZh:'联系电话', span:3}
+      ], prefix)
+    + row([{name:'address', labelEn:'Director Correspondence Address', labelZh:'董事通讯地址', span:12}], prefix);
+  document.getElementById('directorsContainer').appendChild(wrap);
+}
+
+/* UBO count drives BO sub-form generation */
+document.addEventListener('input', function(e){
+  if(e.target.id === 'e_uboCount'){
+    renderBOSections(parseInt(e.target.value,10) || 0);
+  }
+});
+
+function renderBOSections(n){
+  n = Math.max(0, Math.min(n, 20));
+  const container = document.getElementById('boContainer');
+  container.innerHTML = '';
+  for(let i=1;i<=n;i++){
+    const prefix = 'bo'+i;
+    const wrap = document.createElement('div');
+    wrap.className = 'owner-block';
+    wrap.innerHTML = '<div class="owner-head"><span>Beneficial Owner '+i+' 受益人 '+i+'</span></div>'
+      + '<div style="padding:4px 0;">' + individualSectionsHTML(prefix, {showAccountType:false, hideRMCert:true}) + '</div>';
+    container.appendChild(wrap);
+  }
+  initSignaturePads(container);
+}
+
+function goHome(){
+  document.getElementById('landing').classList.remove('hidden');
+  document.getElementById('individualScreen').classList.add('hidden');
+  document.getElementById('entityScreen').classList.add('hidden');
+  document.getElementById('toolbar').classList.add('hidden');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* =========================================================================
+   CONDITIONAL TOGGLES + "OTHERS" FIELDS
+   ========================================================================= */
+document.addEventListener('change', function(e){
+  const t = e.target;
+
+  if(t.matches('select[data-toggle-target]')){
+    const target = document.getElementById(t.dataset.toggleTarget);
+    if(target){ target.hidden = (t.value !== t.dataset.showWhen); }
+  }
+
+  if(t.matches('select[data-other]')){
+    const box = document.getElementById(t.id+'_other');
+    if(box){
+      let showOthers;
+      if(t.multiple){
+        showOthers = Array.from(t.selectedOptions).some(o=>o.value.indexOf('Others')===0);
+      } else {
+        showOthers = t.value.indexOf('Others')===0;
+      }
+      box.hidden = !showOthers;
+    }
+  }
+
+  if(t.matches('.choice-group input[type=radio]')){
+    // exactly one option can be checked in a radio group — sync every "Others" box in the group
+    document.getElementsByName(t.name).forEach(r=>{
+      const box = r.parentElement.querySelector('.other-inline');
+      if(box) box.hidden = !(r.checked && r.value.indexOf('Others')===0);
+    });
+  }
+
+  if(t.matches('.choice-group input[type=checkbox]')){
+    const box = t.parentElement.querySelector('.other-inline');
+    if(box) box.hidden = !(t.checked && t.value.indexOf('Others')===0);
+  }
+});
+
+/* =========================================================================
+   SIGNATURE PAD
+   ========================================================================= */
+function initSignaturePads(scope){
+  scope.querySelectorAll('canvas.sig-pad').forEach(canvas=>{
+    if(canvas.dataset.wired) return;
+    canvas.dataset.wired = 'true';
+    const ctx = canvas.getContext('2d');
+    let drawing=false, last=null;
+    function pos(evt){
+      const r = canvas.getBoundingClientRect();
+      const src = evt.touches ? evt.touches[0] : evt;
+      return {x:(src.clientX-r.left)*(canvas.width/r.width), y:(src.clientY-r.top)*(canvas.height/r.height)};
+    }
+    function start(evt){ drawing=true; last=pos(evt); canvas.dataset.signed='true'; evt.preventDefault(); }
+    function move(evt){
+      if(!drawing) return;
+      const p = pos(evt);
+      ctx.strokeStyle = '#12203A'; ctx.lineWidth = 2; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke();
+      last = p; evt.preventDefault();
+    }
+    function end(){ drawing=false; }
+    canvas.addEventListener('mousedown',start);
+    canvas.addEventListener('mousemove',move);
+    window.addEventListener('mouseup',end);
+    canvas.addEventListener('touchstart',start,{passive:false});
+    canvas.addEventListener('touchmove',move,{passive:false});
+    canvas.addEventListener('touchend',end);
+  });
+}
+function clearSignature(id){
+  const c = document.getElementById(id);
+  c.getContext('2d').clearRect(0,0,c.width,c.height);
+  c.dataset.signed = 'false';
+}
+
+/* =========================================================================
+   VALIDATION
+   ========================================================================= */
+function activeForm(){
+  if(!document.getElementById('individualScreen').classList.contains('hidden')) return document.getElementById('individualScreen');
+  if(!document.getElementById('entityScreen').classList.contains('hidden')) return document.getElementById('entityScreen');
+  return null;
+}
+
+function checkForm(){
+  const scope = activeForm();
+  if(!scope){ toast('Choose Individual or Entity first 请先选择个人或实体'); return; }
+  const required = Array.from(scope.querySelectorAll('[required]'));
+  const missingEls = required.filter(el => !el.value);
+  const requiredGroups = Array.from(scope.querySelectorAll('[data-required-group]'));
+  const missingGroups = requiredGroups.filter(g => g.querySelectorAll('input:checked').length === 0);
+  const totalMissing = missingEls.length + missingGroups.length;
+  const msgId = scope.id === 'individualScreen' ? 'individualValidateMsg' : 'entityValidateMsg';
+  const msgEl = document.getElementById(msgId);
+  if(totalMissing === 0){
+    msgEl.textContent = '✓ All required fields complete 所有必填栏均已填写';
+    msgEl.className = 'validate-msg ok';
+    toast('All required fields are complete.');
+  } else {
+    msgEl.textContent = '✗ '+totalMissing+' required field(s) missing 尚有 '+totalMissing+' 项必填栏未填写';
+    msgEl.className = 'validate-msg err';
+    const firstMissing = missingEls[0] || missingGroups[0];
+    firstMissing.scrollIntoView({behavior:'smooth', block:'center'});
+    if(firstMissing.focus) firstMissing.focus();
+    toast(totalMissing+' required field(s) still need to be completed.');
+  }
+}
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(()=>t.classList.remove('show'), 3200);
+}
+
+/* =========================================================================
+   EXPORTS
+   ========================================================================= */
+function exportPDF(){
+  if(!activeForm()){ toast('Choose Individual or Entity first 请先选择个人或实体'); return; }
+  window.print();
+}
+
+function collectFieldData(scope){
+  const lines = [];
+  scope.querySelectorAll('.field, .section-head, .repeat-title, .owner-head').forEach(node=>{
+    if(node.classList.contains('section-head')){
+      lines.push('');
+      lines.push('== ' + node.textContent.replace(/\s+/g,' ').trim() + ' ==');
+      return;
+    }
+    if(node.classList.contains('repeat-title') || node.classList.contains('owner-head')){
+      lines.push('');
+      lines.push('-- ' + node.textContent.replace(/\s+/g,' ').trim() + ' --');
+      return;
+    }
+    const label = node.getAttribute('data-label');
+    if(!label) return;
+    const choiceGroup = node.querySelector('.choice-group');
+    if(choiceGroup){
+      const checked = Array.from(choiceGroup.querySelectorAll('input:checked'));
+      let value = checked.map(c=>c.value).join('; ');
+      const otherInline = choiceGroup.querySelector('.other-inline:not([hidden])');
+      if(otherInline && otherInline.value) value += (value?' - ':'') + otherInline.value;
+      lines.push(label + ': ' + (value || '________'));
+      return;
+    }
+    const input = node.querySelector('input, select, textarea');
+    if(!input) return;
+    let value = '';
+    if(input.tagName === 'SELECT'){
+      if(input.multiple){
+        value = Array.from(input.selectedOptions).map(o=>o.value).join('; ');
+      } else {
+        value = input.value;
+      }
+      const otherBox = node.querySelector('.other-box');
+      if(otherBox && !otherBox.hidden && otherBox.value) value += (value?' - ':'') + otherBox.value;
+    } else {
+      value = input.value;
+    }
+    lines.push(label + ': ' + (value || '________'));
+  });
+  return lines.join('\n');
+}
+
+function exportText(){
+  const scope = activeForm();
+  if(!scope){ toast('Choose Individual or Entity first 请先选择个人或实体'); return; }
+  const title = scope.id === 'individualScreen'
+    ? 'CLIENT INFORMATION STATEMENT — INDIVIDUAL 客户信息声明（个人）'
+    : 'CLIENT INFORMATION STATEMENT — ENTITY 客户信息声明（法人实体）';
+  const body = collectFieldData(scope);
+  const content = title + '\nGenerated: ' + new Date().toISOString() + '\n' + '='.repeat(60) + '\n' + body + '\n';
+  downloadBlob(content, (scope.id==='individualScreen'?'CIS_Individual_':'CIS_Entity_') + Date.now() + '.txt', 'text/plain');
+  toast('Text file downloaded.');
+}
+
+function exportHTML(){
+  const scope = activeForm();
+  if(!scope){ toast('Choose Individual or Entity first 请先选择个人或实体'); return; }
+
+  const clone = document.documentElement.cloneNode(true);
+
+  // sync live values into the clone's attributes so the saved file re-opens with data intact
+  const liveInputs = document.querySelectorAll('input, select, textarea');
+  const cloneInputs = clone.querySelectorAll('input, select, textarea');
+  liveInputs.forEach((liveEl, i)=>{
+    const cEl = cloneInputs[i];
+    if(!cEl) return;
+    if(liveEl.tagName === 'SELECT'){
+      Array.from(liveEl.options).forEach((o,idx)=>{
+        if(o.selected) cEl.options[idx].setAttribute('selected','selected');
+        else cEl.options[idx].removeAttribute('selected');
+      });
+    } else if(liveEl.tagName === 'TEXTAREA'){
+      cEl.textContent = liveEl.value;
+    } else if(liveEl.type === 'checkbox' || liveEl.type === 'radio'){
+      if(liveEl.checked) cEl.setAttribute('checked','checked'); else cEl.removeAttribute('checked');
+    } else {
+      cEl.setAttribute('value', liveEl.value);
+    }
+    if(liveEl.hidden) cEl.setAttribute('hidden',''); else cEl.removeAttribute('hidden');
+  });
+
+  // bake signatures into images so they persist
+  const liveCanvases = document.querySelectorAll('canvas.sig-pad');
+  const cloneCanvases = clone.querySelectorAll('canvas.sig-pad');
+  liveCanvases.forEach((c,i)=>{
+    if(c.dataset.signed === 'true'){
+      const img = clone.ownerDocument.createElement('img');
+      img.src = c.toDataURL('image/png');
+      img.style.width = c.width+'px'; img.style.height = c.height+'px'; img.style.display='block';
+      cloneCanvases[i].replaceWith(img);
+    }
+  });
+
+  // reveal current screen visibility state (landing hidden, active screen shown) in the clone
+  ['landing','individualScreen','entityScreen','toolbar'].forEach(id=>{
+    const live = document.getElementById(id);
+    const c = clone.querySelector('#'+id);
+    if(live.classList.contains('hidden')) c.classList.add('hidden'); else c.classList.remove('hidden');
+  });
+
+  const htmlStr = '<!DOCTYPE html>\n' + clone.outerHTML;
+  downloadBlob(htmlStr, (scope.id==='individualScreen'?'CIS_Individual_':'CIS_Entity_') + Date.now() + '.html', 'text/html');
+  toast('HTML file downloaded — reopen it in any browser to keep editing.');
+}
+
+function downloadBlob(content, filename, type){
+  const blob = new Blob([content], {type: type+';charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 2000);
+}
+</script>
+
+
+</body></html>
