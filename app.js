@@ -41,26 +41,7 @@ function obfuscate(str) {
 /* ---------- seed placeholder content on first run ---------- */
 function seedData() {
   if (!localStorage.getItem(LS_NEWS)) {
-    setJSON(LS_NEWS, [
-      {
-        id: cryptoId(),
-        title: "Wind Rose Holding Limited Launches Member Portal",
-        date: "2026-07-10",
-        body: "We are pleased to announce the launch of our member-only product portal, giving registered clients direct access to the latest offering materials, factsheets and updates in one place."
-      },
-      {
-        id: cryptoId(),
-        title: "Market Note: Positioning for the Second Half",
-        date: "2026-06-28",
-        body: "Our investment team continues to favour a balanced, risk-aware approach heading into the second half of the year, with an emphasis on quality and diversification. Members can log in to the Product section for the full briefing."
-      },
-      {
-        id: cryptoId(),
-        title: "Office Update",
-        date: "2026-06-01",
-        body: "Wind Rose Holding Limited confirms business operations continue as normal across all client service channels. Please see Contact Us for the fastest way to reach our team."
-      }
-    ]);
+    setJSON(LS_NEWS, []);
   }
 
   if (!localStorage.getItem(LS_PRODUCTS)) {
@@ -68,7 +49,7 @@ function seedData() {
       {
         id: cryptoId(),
         title: "Sample Product Factsheet",
-        description: "This is a placeholder product entry. Replace it from the Admin panel with your actual product materials — factsheets, brochures, term sheets, or any file members should access.",
+        description: "This is a placeholder product entry. Replace it from the Admin panel with your actual product materials — factsheets, brochures, term sheets, or any file members should acc[...]",
         fileName: null,
         fileData: null,
         uploadedAt: new Date().toISOString().slice(0, 10)
