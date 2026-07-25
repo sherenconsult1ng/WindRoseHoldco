@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wind Rose Holding Limited — Product</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-row">
+    <div class="brand">
+      <span class="brand-mark">Wind Rose Holding Limited</span>
+      <span class="brand-sub">Est. Hong Kong</span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">About Us</a>
+      <a href="product.html" class="active">Product</a>
+      <a href="news.html">News</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="nav-auth" id="auth-slot"></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="section-title">Member Area</div>
+    <h1>Product</h1>
+    <p class="lead">This section is reserved for registered members. Please log in or create an account to view product materials.</p>
+  </div>
+</section>
+
+<!-- Logged-out: auth gate -->
+<section class="section" id="gate-section">
+  <div class="container">
+    <div class="gate-box">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="login">Log In</button>
+        <button class="tab-btn" data-tab="signup">Create Account</button>
+      </div>
+
+      <div id="login-panel">
+        <div class="form-panel">
+          <h3>Member Log In</h3>
+          <form id="login-form">
+            <label for="login-username">Username (8 digits)</label>
+            <input type="text" id="login-username" maxlength="8" placeholder="e.g. 20260716" required />
+
+            <label for="login-password">Password (6 characters)</label>
+            <input type="password" id="login-password" maxlength="6" placeholder="••••••" required />
+
+            <div class="form-actions">
+              <button type="submit" class="btn" style="width:100%;">Log In</button>
+            </div>
+            <div class="form-msg" id="login-msg"></div>
+          </form>
+        </div>
+      </div>
+
+      <div id="signup-panel" style="display:none;">
+        <div class="form-panel">
+          <h3>Create Member Account</h3>
+          <form id="signup-form">
+            <label for="signup-username">Username</label>
+            <input type="text" id="signup-username" maxlength="8" placeholder="8 digits, e.g. 88881234" required />
+            <div class="field-hint">Must be exactly 8 digits (0–9).</div>
+
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" maxlength="6" placeholder="6 characters" required />
+            <div class="field-hint">Exactly 6 characters, including at least one letter, one number and one symbol (e.g. Ab1!cd).</div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn" style="width:100%;">Create Account</button>
+            </div>
+            <div class="form-msg" id="signup-msg"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Logged-in: product content -->
+<section class="section" id="product-section" style="display:none;">
+  <div class="container">
+    <div class="section-title">Member Products</div>
+    <h2>Available Materials</h2>
+    <div id="product-list"></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    &copy; <span id="year"></span> Wind Rose Holding Limited. All rights reserved. &middot;
+    <a href="contact.html">Contact Us</a>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  function showTab(tab) {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+    document.getElementById("login-panel").style.display = tab === "login" ? "block" : "none";
+    document.getElementById("signup-panel").style.display = tab === "signup" ? "block" : "none";
+  }
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => showTab(btn.dataset.tab));
+  });
+
+  function setMsg(el, text, type) {
+    el.textContent = text;
+    el.className = "form-msg show " + type;
+  }
+
+  document.getElementById("login-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("login-username").value.trim();
+    const password = document.getElementById("login-password").value;
+    const result = loginMember(username, password);
+    const msg = document.getElementById("login-msg");
+    if (result.ok) {
+      setMsg(msg, result.message, "success");
+      setTimeout(() => window.location.reload(), 500);
+    } else {
+      setMsg(msg, result.message, "error");
+    }
+  });
+
+  document.getElementById("signup-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("signup-username").value.trim();
+    const password = document.getElementById("signup-password").value;
+    const result = signupMember(username, password);
+    const msg = document.getElementById("signup-msg");
+    setMsg(msg, result.message, result.ok ? "success" : "error");
+    if (result.ok) {
+      document.getElementById("signup-form").reset();
+      setTimeout(() => showTab("login"), 900);
+    }
+  });
+
+  function renderProductGate() {
+    const member = currentMember();
+    const gate = document.getElementById("gate-section");
+    const productSection = document.getElementById("product-section");
+    if (member) {
+      gate.style.display = "none";
+      productSection.style.display = "block";
+      renderProducts();
+    } else {
+      gate.style.display = "block";
+      productSection.style.display = "none";
+    }
+  }
+
+  function renderProducts() {
+    const list = document.getElementById("product-list");
+    const products = getProducts();
+    if (products.length === 0) {
+      list.innerHTML = `<div class="empty-state">No product materials have been published yet.</div>`;
+      return;
+    }
+    list.innerHTML = products.map(p => `
+      <div class="card">
+        <div class="card-title-row">
+          <h3>${escapeHtml(p.title)}</h3>
+          <span class="tag">${p.uploadedAt}</span>
+        </div>
+        <p class="muted">${escapeHtml(p.description)}</p>
+        ${p.fileData ? `<a class="btn btn-ghost btn-small" href="${p.fileData}" download="${escapeHtml(p.fileName)}">Download ${escapeHtml(p.fileName)}</a>` : ""}
+      </div>
+    `).join("");
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str || "";
+    return div.innerHTML;
+  }
+
+  document.addEventListener("DOMContentLoaded", renderProductGate);
+</script>
+</body>
+</html>
