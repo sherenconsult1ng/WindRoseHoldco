@@ -53,29 +53,5 @@
 </footer>
 
 <script src="app.js"></script>
-<script>
-  function escapeHtml(str) {
-    const div = document.createElement("div");
-    div.textContent = str || "";
-    return div.innerHTML;
-  }
-  function renderNewsList() {
-    const container = document.getElementById("news-list");
-    const news = getNews();
-    if (news.length === 0) {
-      container.innerHTML = `<div class="empty-state">No news items have been published yet.</div>`;
-      return;
-    }
-    container.innerHTML = news.map(n => `
-      <div class="card news-item">
-        <div class="date">${n.date}</div>
-        <h3>${escapeHtml(n.title)}</h3>
-        <p>${escapeHtml(n.body)}</p>
-      </div>
-    `).join("");
-  }
-  document.addEventListener("DOMContentLoaded", renderNewsList);
-</script>
-
 
 </body></html>
