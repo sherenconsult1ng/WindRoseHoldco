@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wind Rose Holding Limited — Contact Us</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-row">
+    <div class="brand">
+      <span class="brand-mark">Wind Rose Holding Limited</span>
+      <span class="brand-sub">Est. Hong Kong</span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">About Us</a>
+      <a href="product.html">Product</a>
+      <a href="news.html" class="active">News</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="nav-auth" id="auth-slot"></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="section-title">Market &amp; Company Updates</div>
+    <h1>News</h1>
+    <p class="lead">The latest announcements and market information from Wind Rose Holding Limited.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" id="news-list"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    &copy; <span id="year"></span> Wind Rose Holding Limited. All rights reserved. &middot;
+    <a href="contact.html">Contact Us</a>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str || "";
+    return div.innerHTML;
+  }
+  function renderNewsList() {
+    const container = document.getElementById("news-list");
+    const news = getNews();
+    if (news.length === 0) {
+      container.innerHTML = `<div class="empty-state">No news items have been published yet.</div>`;
+      return;
+    }
+    container.innerHTML = news.map(n => `
+      <div class="card news-item">
+        <div class="date">${n.date}</div>
+        <h3>${escapeHtml(n.title)}</h3>
+        <p>${escapeHtml(n.body)}</p>
+      </div>
+    `).join("");
+  }
+  document.addEventListener("DOMContentLoaded", renderNewsList);
+</script>
+</body>
+</html>
