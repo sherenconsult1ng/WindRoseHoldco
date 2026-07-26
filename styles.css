@@ -38,7 +38,7 @@ h1, h2, h3 {
   margin: 0 0 0.5em;
   color: var(--ink);
 }
-h1 { font-size: 2.1rem; }
+h1 { font-size: 1.8rem; }
 h2 { font-size: 1.4rem; }
 h3 { font-size: 1.1rem; }
 
@@ -73,11 +73,11 @@ p { margin: 0 0 1em; color: var(--ink); }
   line-height: 1.2;
 }
 .brand-mark {
-  font-size: 1.15rem;
+  font-size: 1.242rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: #00008B;
 }
 .brand-sub {
   font-size: 0.72rem;
