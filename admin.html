@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Wind Rose Holding Limited</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-header {
+            background: var(--ink);
+            color: #fff;
+        }
+        .admin-header .nav-row a { 
+            color: #E7E5DF; 
+        }
+        .admin-header .brand-mark { 
+            color: #fff; 
+        }
+
+        .admin-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        .admin-shell {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 0;
+            min-height: 70vh;
+        }
+
+        .admin-sidebar {
+            border-right: 1px solid var(--border);
+            padding: 32px 20px;
+        }
+
+        .admin-sidebar button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            color: var(--ink-soft);
+            cursor: pointer;
+            border-radius: var(--radius);
+            font-family: var(--font);
+        }
+
+        .admin-sidebar button.active,
+        .admin-sidebar button:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .admin-main { 
+            padding: 32px; 
+        }
+
+        .admin-panel { 
+            display: none; 
+        }
+
+        .admin-panel.active { 
+            display: block; 
+        }
+
+        .admin-section {
+            margin-bottom: 48px;
+        }
+
+        .admin-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 24px;
+            color: var(--ink);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 760px) {
+            .admin-shell {
+                grid-template-columns: 1fr;
+            }
+            .admin-sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 20px;
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .admin-sidebar button {
+                flex: 1;
+                min-width: 120px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.88rem;
+        }
+
+        th {
+            color: var(--ink-soft);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+        }
+
+        .empty-state {
+            color: var(--ink-soft);
+            font-size: 0.9rem;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        .file-input-label:hover {
+            background: var(--accent-soft);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .file-name {
+            margin-top: 8px;
+            font-size: 0.76rem;
+            color: var(--ink-soft);
+        }
+
+        .login-container {
+            max-width: 420px;
+            margin: 100px auto;
+            padding: 0 32px;
+        }
+
+        .form-panel {
+            max-width: 420px;
+            margin: 0 auto;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 36px;
+        }
+
+        .form-msg {
+            margin-top: 14px;
+            font-size: 0.85rem;
+            padding: 10px 12px;
+            border-radius: var(--radius);
+            display: none;
+        }
+
+        .form-msg.show { 
+            display: block; 
+        }
+
+        .form-msg.error { 
+            background: #FBEDEB; 
+            color: var(--danger); 
+        }
+
+        .form-msg.success { 
+            background: #E9F1EA; 
+            color: #3E6B4C; 
+        }
+
+        .logout-btn {
+            background: var(--danger);
+            color: #fff;
+            border: 1px solid var(--danger);
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: var(--font);
+        }
+
+        .logout-btn:hover {
+            background: #8a3937;
+        }
+
+        .admin-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .admin-top h1 {
+            margin: 0;
+        }
+
+        .hint-text {
+            font-size: 0.76rem;
+            color: var(--ink-soft);
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header admin-header">
+    <div class="nav-row">
+        <div class="brand">
+            <span class="brand-mark">Wind Rose Holding Limited</span>
+            <span class="brand-sub">Admin Panel</span>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">About Us</a>
+            <a href="product.html">Product</a>
+            <a href="news.html">News</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+        <div class="nav-auth"></div>
+    </div>
+</header>
+
+<!-- LOGIN FORM -->
+<div id="login-section" style="display: none;">
+    <div class="login-container">
+        <div class="form-panel">
+            <h2 style="text-align: center; margin-bottom: 28px;">Admin Login</h2>
+            <div id="login-message" class="form-msg"></div>
+            <form id="login-form">
+                <label for="admin-username">Username</label>
+                <input type="text" id="admin-username" required>
+                
+                <label for="admin-password">Password</label>
+                <input type="password" id="admin-password" required>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-section" style="display: none;">
+    <div class="admin-shell">
+        <!-- SIDEBAR -->
+        <div class="admin-sidebar">
+            <button class="sidebar-btn active" data-panel="members">Members</button>
+            <button class="sidebar-btn" data-panel="products">Products</button>
+            <button class="sidebar-btn" data-panel="news">News</button>
+            <button class="sidebar-btn logout-btn" id="logout-btn">Logout</button>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="admin-main">
+
+            <!-- MEMBERS PANEL -->
+            <div class="admin-panel active" data-panel="members">
+                <div class="admin-top">
+                    <h1>Members Management</h1>
+                </div>
+
+                <div class="admin-section">
+                    <h2>Create Member Account</h2>
+                    <div id="member-message" class="form-msg"></div>
+                    <form id="member-form">
+                        <div class="form-row">
+                            <div>
+                                <label for="member-username">Username (8 digits)</label>
+                                <input type="text" id="member-username" placeholder="e.g., 12345678" required>
+                                <div class="hint-text">Must be exactly 8 digits (0-9)</div>
+                            </div>
+                            <div>
+                                <label for="member-password">Password (6 characters)</label>
+                                <input type="text" id="member-password" placeholder="e.g., Abc@12" required>
+                                <div class="hint-text">Must include a letter, digit, and symbol</div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-section">
+                    <h2>Registered Members</h2>
+                    <div class="table-container">
+                        <table id="members-table">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Created</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="members-tbody">
+                                <tr>
+                                    <td colspan="3" class="empty-state">No members registered yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTS PANEL -->
+            <div class="admin-panel" data-panel="products">
+                <div class="admin-top">
+                    <h1>Products Management</h1>
+                </div>
+
+                <div class="admin-section">
+                    <h2>Add Product</h2>
+                    <div id="product-message" class="form-msg"></div>
+                    <form id="product-form">
+                        <label for="product-title">Product Title</label>
+                        <input type="text" id="product-title" placeholder="e.g., Investment Factsheet Q2 2026" required>
+                        
+                        <label for="product-description">Description</label>
+                        <textarea id="product-description" placeholder="Describe the product..."></textarea>
+                        
+                        <label for="product-file">Attach File (optional)</label>
+                        <label for="fileInput" class="file-input-label">Choose File</label>
+                        <input type="file" id="fileInput">
+                        <div id="file-name" class="file-name"></div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn">Add Product</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-section">
+                    <h2>Products List</h2>
+                    <div class="table-container">
+                        <table id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Uploaded</th>
+                                    <th>File</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-tbody">
+                                <tr>
+                                    <td colspan="4" class="empty-state">No products added yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEWS PANEL -->
+            <div class="admin-panel" data-panel="news">
+                <div class="admin-top">
+                    <h1>News Management</h1>
+                </div>
+
+                <div class="admin-section">
+                    <h2>Add News</h2>
+                    <div id="news-message" class="form-msg"></div>
+                    <form id="news-form">
+                        <label for="news-title">Title</label>
+                        <input type="text" id="news-title" placeholder="News headline" required>
+                        
+                        <label for="news-date">Date</label>
+                        <input type="date" id="news-date" required>
+                        
+                        <label for="news-body">Body</label>
+                        <textarea id="news-body" placeholder="News content..."></textarea>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn">Add News</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-section">
+                    <h2>News List</h2>
+                    <div class="table-container">
+                        <table id="news-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="news-tbody">
+                                <tr>
+                                    <td colspan="3" class="empty-state">No news added yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="container">
+        © <span id="year">2026</span> Wind Rose Holding Limited. All rights reserved. ·
+        <a href="contact.html">Contact Us</a>
+    </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+    /* ===== ADMIN PANEL LOGIC ===== */
+
+    function showLoginForm() {
+        document.getElementById("login-section").style.display = "block";
+        document.getElementById("admin-section").style.display = "none";
+    }
+
+    function showAdminPanel() {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("admin-section").style.display = "block";
+        renderMembers();
+        renderProducts();
+        renderNews();
+    }
+
+    function checkAdminAuth() {
+        if (!isAdminLoggedIn()) {
+            showLoginForm();
+        } else {
+            showAdminPanel();
+        }
+    }
+
+    /* ===== SIDEBAR NAVIGATION ===== */
+    document.querySelectorAll(".sidebar-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            if (btn.id === "logout-btn") return;
+            
+            const panelName = btn.getAttribute("data-panel");
+            document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".admin-panel").forEach(p => p.classList.remove("active"));
+            
+            btn.classList.add("active");
+            document.querySelector(`[data-panel="${panelName}"].admin-panel`).classList.add("active");
+        });
+    });
+
+    /* ===== LOGIN FORM ===== */
+    document.getElementById("login-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = document.getElementById("admin-username").value;
+        const password = document.getElementById("admin-password").value;
+        const result = loginAdmin(username, password);
+
+        const msg = document.getElementById("login-message");
+        if (result.ok) {
+            msg.className = "form-msg success show";
+            msg.textContent = "✓ Login successful. Redirecting...";
+            setTimeout(() => showAdminPanel(), 500);
+        } else {
+            msg.className = "form-msg error show";
+            msg.textContent = "✗ " + result.message;
+        }
+    });
+
+    /* ===== LOGOUT ===== */
+    document.getElementById("logout-btn").addEventListener("click", () => {
+        if (confirm("Are you sure you want to logout?")) {
+            logoutAdmin();
+            showLoginForm();
+            document.getElementById("login-form").reset();
+        }
+    });
+
+    /* ===== MEMBER CREATION ===== */
+    document.getElementById("member-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = document.getElementById("member-username").value;
+        const password = document.getElementById("member-password").value;
+
+        const result = signupMember(username, password);
+        const msg = document.getElementById("member-message");
+
+        if (result.ok) {
+            msg.className = "form-msg success show";
+            msg.textContent = `✓ Account created for ${username}`;
+            document.getElementById("member-form").reset();
+            renderMembers();
+        } else {
+            msg.className = "form-msg error show";
+            msg.textContent = `✗ ${result.message}`;
+        }
+    });
+
+    function renderMembers() {
+        const members = getMembers();
+        const tbody = document.getElementById("members-tbody");
+
+        if (members.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No members registered yet</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = members.map(m => `
+            <tr>
+                <td><strong>${m.username}</strong></td>
+                <td>${m.createdAt}</td>
+                <td>
+                    <button class="btn btn-danger btn-small" onclick="if(confirm('Delete ${m.username}?')) { deleteMember('${m.username}'); renderMembers(); }">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `).join("");
+    }
+
+    /* ===== PRODUCT MANAGEMENT ===== */
+    let selectedFile = null;
+    document.getElementById("fileInput").addEventListener("change", (e) => {
+        selectedFile = e.target.files[0];
+        const fileName = document.getElementById("file-name");
+        fileName.textContent = selectedFile ? `Selected: ${selectedFile.name}` : "";
+    });
+
+    document.getElementById("product-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const title = document.getElementById("product-title").value;
+        const description = document.getElementById("product-description").value;
+
+        await addProduct(title, description, selectedFile);
+
+        const msg = document.getElementById("product-message");
+        msg.className = "form-msg success show";
+        msg.textContent = "✓ Product added successfully";
+        document.getElementById("product-form").reset();
+        selectedFile = null;
+        document.getElementById("file-name").textContent = "";
+        renderProducts();
+    });
+
+    function renderProducts() {
+        const products = getProducts();
+        const tbody = document.getElementById("products-tbody");
+
+        if (products.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="empty-state">No products added yet</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = products.map(p => `
+            <tr>
+                <td><strong>${p.title}</strong></td>
+                <td>${p.uploadedAt}</td>
+                <td>${p.fileName ? `<a href="${p.fileData}" download="${p.fileName}" style="color: var(--accent); text-decoration: underline;">📎 ${p.fileName}</a>` : "—"}</td>
+                <td>
+                    <button class="btn btn-danger btn-small" onclick="deleteProduct('${p.id}'); renderProducts();">Delete</button>
+                </td>
+            </tr>
+        `).join("");
+    }
+
+    /* ===== NEWS MANAGEMENT ===== */
+    document.getElementById("news-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = document.getElementById("news-title").value;
+        const date = document.getElementById("news-date").value;
+        const body = document.getElementById("news-body").value;
+
+        addNews(title, date, body);
+
+        const msg = document.getElementById("news-message");
+        msg.className = "form-msg success show";
+        msg.textContent = "✓ News added successfully";
+        document.getElementById("news-form").reset();
+        renderNews();
+    });
+
+    function renderNews() {
+        const news = getNews();
+        const tbody = document.getElementById("news-tbody");
+
+        if (news.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No news added yet</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = news.map(n => `
+            <tr>
+                <td><strong>${n.title}</strong></td>
+                <td>${n.date}</td>
+                <td>
+                    <button class="btn btn-danger btn-small" onclick="deleteNews('${n.id}'); renderNews();">Delete</button>
+                </td>
+            </tr>
+        `).join("");
+    }
+
+    /* ===== INITIALIZATION ===== */
+    document.addEventListener("DOMContentLoaded", () => {
+        checkAdminAuth();
+    });
+</script>
+
+</body>
+</html>
