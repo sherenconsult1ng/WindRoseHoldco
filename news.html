@@ -63,14 +63,16 @@
       let fileHtml = '—';
 
       if (hasFile) {
-        // Image preview + download link for images
+        // Image preview + download link for images (image preview is clickable and opens in new tab)
         if (String(n.fileData).startsWith('data:image/')) {
           fileHtml = `
             <div class="news-file">
-              <img src="${n.fileData}" alt="${escapeHtml(n.fileName)}" style="max-width:100%;height:auto;border-radius:6px;margin-top:10px;">
+              <a href="${n.fileData}" target="_blank" rel="noopener noreferrer">
+                <img src="${n.fileData}" alt="${escapeHtml(n.fileName)}" style="max-width:100%;height:auto;border-radius:6px;margin-top:10px;">
+              </a>
             </div>
             <div style="margin-top:6px;">
-              <a href="${n.fileData}" download="${escapeHtml(n.fileName)}" style="color:var(--accent);text-decoration:underline;">📎 ${escapeHtml(n.fileName)}</a>
+              <a href="${n.fileData}" target="_blank" rel="noopener noreferrer" download="${escapeHtml(n.fileName)}" style="color:var(--accent);text-decoration:underline;">📎 ${escapeHtml(n.fileName)}</a>
             </div>
             ${n.caption ? `<div class="hint-text" style="margin-top:6px;">${escapeHtml(n.caption)}</div>` : ''}
           `;
