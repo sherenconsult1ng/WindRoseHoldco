@@ -270,28 +270,50 @@ function renderAuthState() {
 function openFilePreview(url, filename) {
   return new Promise(async (resolve, reject) => {
     try {
-      let objectUrl = url;
       if (typeof url !== 'string') return reject(new Error('Invalid url'));
+
+      // If we need to fetch the resource, open a blank window immediately so Chrome doesn't block it.
+      let previewWindow = null;
+      let objectUrl = url;
+      const needsFetch = !url.startsWith('data:') && !url.startsWith('blob:');
+
+      if (needsFetch) {
+        // Open an empty tab synchronously as part of the user gesture to avoid popup blocking.
+        previewWindow = window.open('', '_blank');
+        if (!previewWindow) {
+          // If null, popup was blocked already — return an error so caller can fallback.
+          return reject(new Error('Unable to open preview window (popup blocked)'));
+        }
+      }
+
       if (url.startsWith('data:') || url.startsWith('blob:')) {
         objectUrl = url;
       } else {
-        // fetch and create an object URL so we can open safely (works around some browser download restrictions)
+        // fetch and create an object URL
         const resp = await fetch(url, { mode: 'cors' });
         if (!resp.ok) throw new Error('Network response not OK');
         const blob = await resp.blob();
         objectUrl = URL.createObjectURL(blob);
-        // schedule a revoke later when caller is done with it
       }
+
+      // If we opened a previewWindow earlier, navigate it to the object URL
+      if (previewWindow) {
+        previewWindow.location.href = objectUrl;
+        if (filename) {
+          try { previewWindow.document.title = filename; } catch (e) { /* ignore cross-origin */ }
+        }
+        // Revoke the object URL once the window is closed
+        const revokeWhenClosed = setInterval(() => {
+          if (previewWindow.closed) {
+            URL.revokeObjectURL(objectUrl);
+            clearInterval(revokeWhenClosed);
+          }
+        }, 1000);
+      }
+
       resolve({ ok: true, url: objectUrl });
     } catch (err) {
       reject(err);
     }
   });
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  seedData();
-  renderAuthState();
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-});
