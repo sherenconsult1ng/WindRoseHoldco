@@ -58,6 +58,34 @@
       return;
     }
 
+    // Helper to safely create a downloadable link that works even for cross-origin resources.
+    async function tryDownload(event, url, filename) {
+      event.preventDefault();
+      // If it's a data: or blob: URL, just open it directly
+      try {
+        if (String(url).startsWith('data:') || String(url).startsWith('blob:')) {
+          window.open(url, '_blank', 'noopener');
+          return;
+        }
+        // Fetch and create an object URL (works around Chrome ignoring download on cross-origin links)
+        const resp = await fetch(url, { mode: 'cors' });
+        if (!resp.ok) throw new Error('Network response not OK');
+        const blob = await resp.blob();
+        const u = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = u;
+        a.download = filename || '';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(u), 5000);
+      } catch (err) {
+        // Fallback: open in new tab
+        window.open(url, '_blank', 'noopener');
+      }
+    }
+
     container.innerHTML = news.map(n => {
       const hasFile = n.fileName && n.fileData;
       let fileHtml = '—';
@@ -75,15 +103,16 @@
               </a>
             </div>
             <div style="margin-top:6px;">
-              <a href="${fileData}" target="_blank" rel="noopener noreferrer" download="${safeFileName}" style="color:var(--accent);text-decoration:underline;">📎 ${safeFileName}</a>
+              <a href="${fileData}" onclick="event.preventDefault();try{window.open('${fileData}','_blank','noopener')}catch(e){window.open('${fileData}','_blank')};" rel="noopener noreferrer" download="${safeFileName}" style="color:var(--accent);text-decoration:underline;">📎 ${safeFileName}</a>
             </div>
             ${n.caption ? `<div class="hint-text" style="margin-top:6px;">${escapeHtml(n.caption)}</div>` : ''}
           `;
         } else {
-          // Non-image files: open in new tab (or download if browser supports). Show caption if present.
+          // Non-image files: use the download fallback to work around cross-origin/download attribute limitations.
+          // We attach a data attribute that we will bind a click handler to after insertion.
           fileHtml = `
             <div>
-              <a href="${fileData}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;" download="${safeFileName}">📎 ${safeFileName}</a>
+              <a href="${fileData}" class="news-download" data-filename="${safeFileName}" style="color:var(--accent);text-decoration:underline;">📎 ${safeFileName}</a>
               ${n.caption ? `<div class="hint-text" style="margin-top:6px;">${escapeHtml(n.caption)}</div>` : ''}
             </div>
           `;
@@ -99,6 +128,15 @@
         </div>
       `;
     }).join('');
+
+    // After inserting, bind click handlers for .news-download links to use the fetch+download fallback.
+    Array.from(container.querySelectorAll('.news-download')).forEach(a => {
+      a.addEventListener('click', (ev) => {
+        const url = a.getAttribute('href');
+        const filename = a.getAttribute('data-filename') || '';
+        tryDownload(ev, url, filename);
+      });
+    });
   });
 
   // Basic HTML escaping to avoid injecting stored strings directly into markup.
