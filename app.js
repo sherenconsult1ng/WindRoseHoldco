@@ -49,7 +49,7 @@ function seedData() {
       {
         id: cryptoId(),
         title: "Sample Product Factsheet",
-        description: "This is a placeholder product entry. Replace it from the Admin panel with your actual product materials — factsheets, brochures, term sheets, or any file members should acc[...]",
+        description: "This is a placeholder product entry. Replace it from the Admin panel with your actual product materials — factsheets, brochures, term sheets, or any file members should acc...",
         fileName: null,
         fileData: null,
         uploadedAt: new Date().toISOString().slice(0, 10)
@@ -171,10 +171,22 @@ function deleteProduct(id) {
 function getNews() {
   return getJSON(LS_NEWS, []).sort((a, b) => (a.date < b.date ? 1 : -1));
 }
-function addNews(title, date, body) {
-  const news = getJSON(LS_NEWS, []);
-  news.unshift({ id: cryptoId(), title, date, body });
-  setJSON(LS_NEWS, news);
+function addNews(title, date, body, file, caption) {
+  return new Promise((resolve) => {
+    const news = getJSON(LS_NEWS, []);
+    const finish = (fileData, fileName) => {
+      news.unshift({ id: cryptoId(), title, date, body, caption: caption || null, fileName: fileName || null, fileData: fileData || null });
+      setJSON(LS_NEWS, news);
+      resolve();
+    };
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => finish(reader.result, file.name);
+      reader.readAsDataURL(file);
+    } else {
+      finish(null, null);
+    }
+  });
 }
 function deleteNews(id) {
   const news = getJSON(LS_NEWS, []).filter(n => n.id !== id);
