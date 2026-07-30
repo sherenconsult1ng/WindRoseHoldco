@@ -63,24 +63,27 @@
       let fileHtml = '—';
 
       if (hasFile) {
-        // Image preview + download link for images (image preview is clickable and opens in new tab)
-        if (String(n.fileData).startsWith('data:image/')) {
+        const fileData = String(n.fileData);
+        const safeFileName = escapeHtml(n.fileName || 'attachment');
+
+        // Image preview + download link for images (click opens in new tab)
+        if (fileData.startsWith('data:image/') || fileData.startsWith('blob:') || /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(n.fileName || '')) {
           fileHtml = `
             <div class="news-file">
-              <a href="${n.fileData}" target="_blank" rel="noopener noreferrer">
-                <img src="${n.fileData}" alt="${escapeHtml(n.fileName)}" style="max-width:100%;height:auto;border-radius:6px;margin-top:10px;">
+              <a href="${fileData}" target="_blank" rel="noopener noreferrer">
+                <img src="${fileData}" alt="${safeFileName}" style="max-width:100%;height:auto;border-radius:6px;margin-top:10px;">
               </a>
             </div>
             <div style="margin-top:6px;">
-              <a href="${n.fileData}" target="_blank" rel="noopener noreferrer" download="${escapeHtml(n.fileName)}" style="color:var(--accent);text-decoration:underline;">📎 ${escapeHtml(n.fileName)}</a>
+              <a href="${fileData}" target="_blank" rel="noopener noreferrer" download="${safeFileName}" style="color:var(--accent);text-decoration:underline;">📎 ${safeFileName}</a>
             </div>
             ${n.caption ? `<div class="hint-text" style="margin-top:6px;">${escapeHtml(n.caption)}</div>` : ''}
           `;
         } else {
-          // Non-image: open in new tab (some browsers may download) and show caption
+          // Non-image files: open in new tab (or download if browser supports). Show caption if present.
           fileHtml = `
             <div>
-              <a href="${n.fileData}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;">📎 ${escapeHtml(n.fileName)}</a>
+              <a href="${fileData}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;" download="${safeFileName}">📎 ${safeFileName}</a>
               ${n.caption ? `<div class="hint-text" style="margin-top:6px;">${escapeHtml(n.caption)}</div>` : ''}
             </div>
           `;
