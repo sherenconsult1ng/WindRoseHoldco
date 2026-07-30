@@ -407,6 +407,14 @@
                         <label for="news-body">Body</label>
                         <textarea id="news-body" placeholder="News content..."></textarea>
                         
+                        <label for="news-file">Attach File (optional)</label>
+                        <label for="news-fileInput" class="file-input-label">Choose File</label>
+                        <input type="file" id="news-fileInput">
+                        <div id="news-file-name" class="file-name"></div>
+
+                        <label for="news-caption">File Caption (optional)</label>
+                        <input type="text" id="news-caption" placeholder="Caption shown below the file (e.g., 'Figure 1: Annual results')">
+                        
                         <div class="form-actions">
                             <button type="submit" class="btn">Add News</button>
                         </div>
@@ -599,18 +607,28 @@
     }
 
     /* ===== NEWS MANAGEMENT ===== */
-    document.getElementById("news-form").addEventListener("submit", (e) => {
+    let selectedNewsFile = null;
+    document.getElementById("news-fileInput").addEventListener("change", (e) => {
+        selectedNewsFile = e.target.files[0];
+        const fileName = document.getElementById("news-file-name");
+        fileName.textContent = selectedNewsFile ? `Selected: ${selectedNewsFile.name}` : "";
+    });
+
+    document.getElementById("news-form").addEventListener("submit", async (e) => {
         e.preventDefault();
         const title = document.getElementById("news-title").value;
         const date = document.getElementById("news-date").value;
         const body = document.getElementById("news-body").value;
+        const caption = document.getElementById("news-caption").value;
 
-        addNews(title, date, body);
+        await addNews(title, date, body, selectedNewsFile, caption);
 
         const msg = document.getElementById("news-message");
         msg.className = "form-msg success show";
         msg.textContent = "✓ News added successfully";
         document.getElementById("news-form").reset();
+        selectedNewsFile = null;
+        document.getElementById("news-file-name").textContent = "";
         renderNews();
     });
 
