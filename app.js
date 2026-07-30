@@ -49,7 +49,7 @@ function seedData() {
       {
         id: cryptoId(),
         title: "Sample Product Factsheet",
-        description: "This is a placeholder product entry. Replace it from the Admin panel with your actual product materials — factsheets, brochures, term sheets, or any file members should acc...",
+        description: "This is a placeholder product entry. Replace it from the Admin panel with your actual product materials — factsheets, brochures, term sheets, or any file members should acc[...]",
         fileName: null,
         fileData: null,
         uploadedAt: new Date().toISOString().slice(0, 10)
@@ -202,6 +202,50 @@ function deleteMember(username) {
   setJSON(LS_MEMBERS, members);
 }
 
+/* ---------- data export/import helpers (new) ---------- */
+// Export all local data (members, products, news) to a JSON file so it can be imported into another browser/profile.
+function exportAllData() {
+  const payload = {
+    members: getJSON(LS_MEMBERS, []),
+    products: getJSON(LS_PRODUCTS, []),
+    news: getJSON(LS_NEWS, [])
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `wr-data-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+
+// Import a JSON file exported with exportAllData(). This WILL overwrite the current data after user confirmation.
+function importAllDataFile(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) return reject(new Error('No file provided'));
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(reader.result);
+        if (!parsed || typeof parsed !== 'object') throw new Error('Invalid file format');
+        if (!confirm('Importing will replace the current members, products and news in this browser. Continue?')) {
+          return resolve({ ok: false, message: 'Import cancelled' });
+        }
+        setJSON(LS_MEMBERS, parsed.members || []);
+        setJSON(LS_PRODUCTS, parsed.products || []);
+        setJSON(LS_NEWS, parsed.news || []);
+        resolve({ ok: true });
+      } catch (e) {
+        reject(e);
+      }
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsText(file);
+  });
+}
+
 /* ---------- nav state (runs on every page) ---------- */
 function renderAuthState() {
   const slot = document.getElementById("auth-slot");
@@ -219,6 +263,30 @@ function renderAuthState() {
   } else {
     slot.innerHTML = `<a class="btn btn-ghost" href="product.html">Member Login</a>`;
   }
+}
+
+// Public helper used by the static pages (news/product) to show a preview of files stored as data URLs or blob/object URLs.
+// If `url` is a data: URL or blob: URL we use it directly, otherwise we fetch the resource so we can create an object URL for viewing.
+function openFilePreview(url, filename) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let objectUrl = url;
+      if (typeof url !== 'string') return reject(new Error('Invalid url'));
+      if (url.startsWith('data:') || url.startsWith('blob:')) {
+        objectUrl = url;
+      } else {
+        // fetch and create an object URL so we can open safely (works around some browser download restrictions)
+        const resp = await fetch(url, { mode: 'cors' });
+        if (!resp.ok) throw new Error('Network response not OK');
+        const blob = await resp.blob();
+        objectUrl = URL.createObjectURL(blob);
+        // schedule a revoke later when caller is done with it
+      }
+      resolve({ ok: true, url: objectUrl });
+    } catch (err) {
+      reject(err);
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
