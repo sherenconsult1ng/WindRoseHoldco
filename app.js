@@ -49,7 +49,7 @@ function seedData() {
       {
         id: cryptoId(),
         title: "Sample Product Factsheet",
-        description: "This is a placeholder product entry. Replace it from the Admin panel with your actual product materials — factsheets, brochures, term sheets, or any file members should acc[...]",
+        description: "This is a placeholder product entry. Replace it from the Admin panel with your actual product materials — factsheets, brochures, term sheets, or any file members should access via the members area.",
         fileName: null,
         fileData: null,
         uploadedAt: new Date().toISOString().slice(0, 10)
