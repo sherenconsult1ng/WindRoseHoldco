@@ -1,0 +1,42 @@
+name: Build content JSON
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "scripts/build-content.js"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install --no-save gray-matter
+
+      - name: Build news.json / products.json
+        run: node scripts/build-content.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- news.json products.json; then
+            echo "No content changes to commit."
+          else
+            git add news.json products.json
+            git commit -m "chore: rebuild news.json/products.json [skip ci]"
+            git push
+          fi
