@@ -272,50 +272,59 @@ function openFilePreview(url, filename) {
     try {
       if (typeof url !== 'string') return reject(new Error('Invalid url'));
 
-      // If it's a data: or blob: URL — try opening in a new tab so PDFs render in browser viewers.
+      // If data: or blob: -> open directly in new tab
       if (url.startsWith('data:') || url.startsWith('blob:')) {
-        const win = window.open(url, '_blank');
+        const win = window.open(url, '_blank', 'noopener');
         if (!win) {
-          // Popup blocked — fallback to navigating in the same tab
+          // popup blocked -> navigate same tab
           window.location.href = url;
         }
         return resolve({ ok: true, url });
       }
 
-      // For external URLs we fetch the resource and create an object URL for viewing.
-      const resp = await fetch(url, { mode: 'cors' });
-      if (!resp.ok) throw new Error('Network response not OK');
-      const blob = await resp.blob();
-      const objectUrl = URL.createObjectURL(blob);
+      // For external URLs: open a blank tab synchronously to avoid popup blocking
+      const previewWin = window.open('', '_blank', 'noopener');
+      try {
+        const resp = await fetch(url, { mode: 'cors' });
+        if (!resp.ok) throw new Error('Fetch error: ' + resp.status);
+        const blob = await resp.blob();
+        const objectUrl = URL.createObjectURL(blob);
 
-      // Prefer opening in a new tab so PDFs and other viewers can render.
-      const newWin = window.open(objectUrl, '_blank');
-      if (newWin) {
-        if (filename) {
-          try { newWin.document.title = filename; } catch (e) { /* ignore cross-origin */ }
+        // prefer viewing in the opened tab
+        if (previewWin) {
+          try { previewWin.location.href = objectUrl; } catch (e) { window.location.href = objectUrl; }
+          // revoke when window closed (polling)
+          const t = setInterval(() => {
+            try {
+              if (previewWin.closed) {
+                URL.revokeObjectURL(objectUrl);
+                clearInterval(t);
+              }
+            } catch (e) { /* ignore */ }
+          }, 1000);
+        } else {
+          // popup blocked; navigate current tab
+          window.location.href = objectUrl;
+          // revoke after timeout
+          setTimeout(() => URL.revokeObjectURL(objectUrl), 10000);
         }
-        // Revoke the object URL after the window is closed
-        const revokeWhenClosed = setInterval(() => {
-          try {
-            if (newWin.closed) {
-              URL.revokeObjectURL(objectUrl);
-              clearInterval(revokeWhenClosed);
-            }
-          } catch (e) {
-            // ignore
-          }
-        }, 1000);
-        return resolve({ ok: true, url: objectUrl });
-      }
 
-      // Popup blocked — navigate the current tab to the object URL as a fallback
-      window.location.href = objectUrl;
-      // We'll still resolve with the objectUrl so callers can know what was used.
-      resolve({ ok: true, url: objectUrl });
+        return resolve({ ok: true, url: objectUrl });
+      } catch (fetchErr) {
+        // If fetch fails (often due to CORS), navigate the blank window (if any) to the original URL as a fallback
+        console.warn('openFilePreview fetch failed:', fetchErr);
+        try {
+          if (previewWin) previewWin.location.href = url;
+          else window.open(url, '_blank', 'noopener');
+        } catch (e) {
+          window.location.href = url;
+        }
+        return reject(fetchErr);
+      }
     } catch (err) {
-      // Final fallback: try to open the original URL in a new tab or same tab.
-      try { window.open(url, '_blank'); } catch (e) { window.location.href = url; }
-      reject(err);
+      // Final fallback
+      try { window.open(url, '_blank', 'noopener'); } catch (e) { window.location.href = url; }
+      return reject(err);
     }
   });
 }
