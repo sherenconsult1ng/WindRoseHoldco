@@ -49,7 +49,7 @@ function seedData() {
       {
         id: cryptoId(),
         title: "Sample Product Factsheet",
-        description: "This is a placeholder product entry. Replace it from the Admin panel with your actual product materials — factsheets, brochures, term sheets, or any file members should access via the members area.",
+        description: "This is a placeholder product entry. Replace it from the Admin panel with your actual product materials — factsheets, brochures, term sheets, or any file members should access [...]
         fileName: null,
         fileData: null,
         uploadedAt: new Date().toISOString().slice(0, 10)
@@ -272,48 +272,51 @@ function openFilePreview(url, filename) {
     try {
       if (typeof url !== 'string') return reject(new Error('Invalid url'));
 
-      // If we need to fetch the resource, open a blank window immediately so Chrome doesn't block it.
-      let previewWindow = null;
-      let objectUrl = url;
-      const needsFetch = !url.startsWith('data:') && !url.startsWith('blob:');
-
-      if (needsFetch) {
-        // Open an empty tab synchronously as part of the user gesture to avoid popup blocking.
-        previewWindow = window.open('', '_blank');
-        if (!previewWindow) {
-          // If null, popup was blocked already — return an error so caller can fallback.
-          return reject(new Error('Unable to open preview window (popup blocked)'));
-        }
-      }
-
+      // If it's a data: or blob: URL — try opening in a new tab so PDFs render in browser viewers.
       if (url.startsWith('data:') || url.startsWith('blob:')) {
-        objectUrl = url;
-      } else {
-        // fetch and create an object URL
-        const resp = await fetch(url, { mode: 'cors' });
-        if (!resp.ok) throw new Error('Network response not OK');
-        const blob = await resp.blob();
-        objectUrl = URL.createObjectURL(blob);
+        const win = window.open(url, '_blank');
+        if (!win) {
+          // Popup blocked — fallback to navigating in the same tab
+          window.location.href = url;
+        }
+        return resolve({ ok: true, url });
       }
 
-      // If we opened a previewWindow earlier, navigate it to the object URL
-      if (previewWindow) {
-        previewWindow.location.href = objectUrl;
+      // For external URLs we fetch the resource and create an object URL for viewing.
+      const resp = await fetch(url, { mode: 'cors' });
+      if (!resp.ok) throw new Error('Network response not OK');
+      const blob = await resp.blob();
+      const objectUrl = URL.createObjectURL(blob);
+
+      // Prefer opening in a new tab so PDFs and other viewers can render.
+      const newWin = window.open(objectUrl, '_blank');
+      if (newWin) {
         if (filename) {
-          try { previewWindow.document.title = filename; } catch (e) { /* ignore cross-origin */ }
+          try { newWin.document.title = filename; } catch (e) { /* ignore cross-origin */ }
         }
-        // Revoke the object URL once the window is closed
+        // Revoke the object URL after the window is closed
         const revokeWhenClosed = setInterval(() => {
-          if (previewWindow.closed) {
-            URL.revokeObjectURL(objectUrl);
-            clearInterval(revokeWhenClosed);
+          try {
+            if (newWin.closed) {
+              URL.revokeObjectURL(objectUrl);
+              clearInterval(revokeWhenClosed);
+            }
+          } catch (e) {
+            // ignore
           }
         }, 1000);
+        return resolve({ ok: true, url: objectUrl });
       }
 
+      // Popup blocked — navigate the current tab to the object URL as a fallback
+      window.location.href = objectUrl;
+      // We'll still resolve with the objectUrl so callers can know what was used.
       resolve({ ok: true, url: objectUrl });
     } catch (err) {
+      // Final fallback: try to open the original URL in a new tab or same tab.
+      try { window.open(url, '_blank'); } catch (e) { window.location.href = url; }
       reject(err);
     }
   });
 }
+
