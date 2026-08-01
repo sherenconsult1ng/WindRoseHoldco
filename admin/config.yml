@@ -1,0 +1,56 @@
+# Decap CMS configuration.
+#
+# ===== ONE-TIME SETUP (repo owner only) =====
+# GitHub Pages is static hosting only, so logging in with GitHub requires a
+# small external OAuth proxy to complete the token exchange safely. Steps:
+#   1. Deploy a free proxy, e.g. https://github.com/sterlingwes/decap-proxy
+#      (Cloudflare Worker, free tier) — or use the hosted option at
+#      https://decapbridge.com if you'd rather not manage a Worker yourself.
+#   2. Create a GitHub OAuth App at https://github.com/settings/applications/new
+#      - Homepage URL: your proxy's URL
+#      - Authorization callback URL: https://<your-proxy-domain>/callback
+#   3. Once the proxy is deployed, replace base_url below with its real URL
+#      (still a placeholder — repo/branch are already filled in).
+#
+# TODO: replace with your deployed OAuth proxy URL, e.g. https://decap-proxy.your-subdomain.workers.dev
+backend:
+  name: github
+  repo: sherenconsult1ng/WindRoseHoldco
+  branch: main
+  base_url: https://your-decap-proxy.example.workers.dev
+  auth_endpoint: /auth
+
+# Files uploaded through the CMS (PDFs, images) are committed into /uploads
+# at the repo root, so GitHub Pages serves them as normal static files at
+# a real https:// URL — no more localStorage, no more data: URL quirks.
+media_folder: "uploads"
+public_folder: "/uploads"
+
+# No visual preview pane needed for this simple content-only site.
+show_preview_links: true
+
+collections:
+  - name: "news"
+    label: "News"
+    folder: "content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} — {{title}}"
+    sortableFields: ["date", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Attached File (optional, e.g. PDF)", name: "file", widget: "file", required: false }
+      - { label: "File Caption (optional)", name: "caption", widget: "string", required: false }
+
+  - name: "products"
+    label: "Products"
+    folder: "content/products"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "markdown", required: false }
+      - { label: "Attached File (e.g. factsheet PDF)", name: "file", widget: "file", required: false }
