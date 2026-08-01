@@ -62,9 +62,15 @@
     async function tryDownload(event, url, filename) {
       event.preventDefault();
       try {
-        // If it's a data: or blob: URL — open directly in the same tab so the user can view it immediately.
+        if (typeof url !== 'string') throw new Error('Invalid url');
+
+        // If it's a data: or blob: URL — open directly (prefer new tab so PDFs render in viewers).
         if (String(url).startsWith('data:') || String(url).startsWith('blob:')) {
-          window.open(url, '_self');
+          const win = window.open(url, '_blank');
+          if (!win) {
+            // Popup blocked — navigate in same tab as a fallback
+            window.location.href = url;
+          }
           return;
         }
 
@@ -78,8 +84,12 @@
         const objectUrl = URL.createObjectURL(blob);
 
         if (isViewableByExt || blob.type.startsWith('image/') || blob.type === 'application/pdf' || blob.type.startsWith('text/')) {
-          // Open in the same tab for quick viewing.
-          window.open(objectUrl, '_self');
+          // Open in a new tab for quick viewing (better for PDFs and large files).
+          const win = window.open(objectUrl, '_blank');
+          if (!win) {
+            // Popup blocked — navigate in same tab
+            window.location.href = objectUrl;
+          }
         } else {
           // Trigger a download for other file types.
           const a = document.createElement('a');
@@ -94,8 +104,8 @@
         // Revoke object URL after some time.
         setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
       } catch (err) {
-        // Fallback: open the URL in the same tab (best-effort) — avoids leaving the user with a broken UI.
-        try { window.open(url, '_self'); } catch (e) { window.open(url, '_blank'); }
+        // Fallback: open the URL in a new tab (best-effort) — avoids leaving the user with a broken UI.
+        try { window.open(url, '_blank'); } catch (e) { window.location.href = url; }
       }
     }
 
@@ -156,7 +166,7 @@
       a.addEventListener('click', (ev) => {
         const url = a.getAttribute('href');
         const filename = a.getAttribute('data-filename') || '';
-        // For open we prefer to open in the same tab for immediate viewing.
+        // For open we prefer to open in a new tab for immediate viewing.
         tryDownload(ev, url, filename);
       });
     });
