@@ -64,30 +64,41 @@
       try {
         if (typeof url !== 'string') throw new Error('Invalid url');
 
-        // If it's a data: or blob: URL — open directly (prefer new tab so PDFs render in viewers).
+        // If it's a data: or blob: URL — open directly (in a new tab so PDFs render in viewers).
         if (String(url).startsWith('data:') || String(url).startsWith('blob:')) {
-          const win = window.open(url, '_blank');
+          const win = window.open(url, '_blank', 'noopener');
           if (!win) {
-            // Popup blocked — navigate in same tab as a fallback
+            // Popup blocked — navigate in same tab as fallback
             window.location.href = url;
           }
           return;
         }
 
-        // For common viewable extensions, open in same tab after fetching to create an object URL.
+        // For common viewable extensions, open in a new tab. To avoid popup blocking we open a blank window synchronously and navigate it after fetch.
         const viewableExt = /\.(pdf|txt|html?|md)(\?.*)?$/i;
         const isViewableByExt = viewableExt.test(filename || '');
+
+        const needsFetch = true; // we always fetch external URLs to create object URLs (for safer viewing)
+
+        // Open a blank window synchronously as part of the user gesture to avoid popup blocking.
+        let previewWindow = window.open('', '_blank', 'noopener');
+        let objectUrl = url;
+
+        if (!previewWindow) {
+          // Popup blocked — we'll fall back to same-tab navigation after fetch.
+          previewWindow = null;
+        }
 
         const resp = await fetch(url, { mode: 'cors' });
         if (!resp.ok) throw new Error('Network response not OK');
         const blob = await resp.blob();
-        const objectUrl = URL.createObjectURL(blob);
+        objectUrl = URL.createObjectURL(blob);
 
         if (isViewableByExt || blob.type.startsWith('image/') || blob.type === 'application/pdf' || blob.type.startsWith('text/')) {
-          // Open in a new tab for quick viewing (better for PDFs and large files).
-          const win = window.open(objectUrl, '_blank');
-          if (!win) {
-            // Popup blocked — navigate in same tab
+          // If we opened a preview window earlier, navigate it there. Otherwise navigate current tab.
+          if (previewWindow) {
+            try { previewWindow.location.href = objectUrl; } catch (e) { window.location.href = objectUrl; }
+          } else {
             window.location.href = objectUrl;
           }
         } else {
@@ -104,8 +115,8 @@
         // Revoke object URL after some time.
         setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
       } catch (err) {
-        // Fallback: open the URL in a new tab (best-effort) — avoids leaving the user with a broken UI.
-        try { window.open(url, '_blank'); } catch (e) { window.location.href = url; }
+        // Fallback: open the URL in a new tab or same tab.
+        try { window.open(url, '_blank', 'noopener'); } catch (e) { window.location.href = url; }
       }
     }
 
@@ -117,16 +128,16 @@
         const fileData = String(n.fileData);
         const safeFileName = escapeHtml(n.fileName || 'attachment');
 
-        // Image preview + download link for images (click opens directly in the same tab)
+        // Image preview + download link for images (click opens directly in a new tab)
         if (fileData.startsWith('data:image/') || fileData.startsWith('blob:') || /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(n.fileName || '')) {
           fileHtml = `
             <div class="news-file">
-              <a href="${fileData}" rel="noopener noreferrer">
+              <a href="${fileData}" target="_blank" rel="noopener noreferrer">
                 <img src="${fileData}" alt="${safeFileName}" style="max-width:100%;height:auto;border-radius:6px;margin-top:10px;">
               </a>
             </div>
             <div style="margin-top:6px;">
-              <a href="${fileData}" class="news-open" data-filename="${safeFileName}" style="color:var(--accent);text-decoration:underline;">🔍 Open</a>
+              <a href="${fileData}" class="news-open" data-filename="${safeFileName}" style="color:var(--accent);text-decoration:underline;" target="_blank" rel="noopener noreferrer">🔍 Open</a>
               &nbsp;·&nbsp;
               <a href="${fileData}" download="${safeFileName}" style="color:var(--accent);text-decoration:underline;">📥 Download</a>
             </div>
@@ -136,7 +147,7 @@
           // Non-image files: show an open/download link and use tryDownload handler for better cross-browser behaviour.
           fileHtml = `
             <div>
-              <a href="${fileData}" class="news-download" data-filename="${safeFileName}" style="color:var(--accent);text-decoration:underline;">📎 ${safeFileName}</a>
+              <a href="${fileData}" class="news-download" data-filename="${safeFileName}" style="color:var(--accent);text-decoration:underline;" target="_blank" rel="noopener noreferrer">📎 ${safeFileName}</a>
               ${n.caption ? `<div class="hint-text" style="margin-top:6px;">${escapeHtml(n.caption)}</div>` : ''}
             </div>
           `;
