@@ -1,0 +1,12 @@
+{
+  "name": "windrose-holdco-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static site for Wind Rose Holding Limited. news.json/products.json are generated from /content via scripts/build-content.js — see .github/workflows/build-content.yml.",
+  "scripts": {
+    "build-content": "node scripts/build-content.js"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3"
+  }
+}

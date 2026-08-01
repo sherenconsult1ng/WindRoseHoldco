@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wind Rose Holding Limited — News</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-row">
+    <div class="brand">
+      <span class="brand-mark">Wind Rose Holding Limited</span>
+      <span class="brand-sub">Est. Hong Kong</span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">About Us</a>
+      <a href="product.html">Product</a>
+      <a href="news.html" class="active">News</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="nav-auth" id="auth-slot"><a class="btn btn-ghost" href="product.html">Member Login</a></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="section-title">Market &amp; Company Updates</div>
+    <h1>News</h1>
+    <p class="lead">The latest announcements and market information from Wind Rose Holding Limited.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" id="news-list">
+      <!-- news items will be rendered here by app.js -->
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    © <span id="year">2026</span> Wind Rose Holding Limited. All rights reserved. ·
+    <a href="contact.html">Contact Us</a>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+
+<script>
+  // Render news items (including attached files and captions) for site visitors.
+  //
+  // News content is now published via the Decap CMS admin panel at /admin,
+  // which commits real markdown + file uploads into the repo (see /content
+  // and /uploads). A GitHub Action compiles those into news.json on every
+  // publish (see .github/workflows/build-content.yml), and this page just
+  // fetches that JSON — no localStorage, no per-device data, and files are
+  // real https:// URLs so plain <a> clicks/downloads work natively without
+  // any JavaScript workarounds.
+  document.addEventListener("DOMContentLoaded", async () => {
+    const container = document.getElementById("news-list");
+    if (!container) return;
+
+    let news = [];
+    try {
+      const resp = await fetch("news.json", { cache: "no-store" });
+      if (!resp.ok) throw new Error("news.json fetch failed: " + resp.status);
+      news = await resp.json();
+    } catch (err) {
+      console.warn("Could not load news.json:", err);
+      container.innerHTML = '<p class="empty-state">News is temporarily unavailable. Please check back shortly.</p>';
+      return;
+    }
+
+    if (!news || news.length === 0) {
+      container.innerHTML = '<p class="empty-state">No news available.</p>';
+      return;
+    }
+
+    container.innerHTML = news.map(n => {
+      const hasFile = n.fileName && n.fileUrl;
+      let fileHtml = '—';
+
+      if (hasFile) {
+        const fileUrl = escapeHtml(String(n.fileUrl));
+        const safeFileName = escapeHtml(n.fileName || 'attachment');
+
+        // Image preview + download link for images (plain native anchors — no click interception needed for a real file URL)
+        if (/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(n.fileName || '')) {
+          fileHtml = `
+            <div class="news-file">
+              <a href="${fileUrl}" target="_blank" rel="noopener noreferrer">
+                <img src="${fileUrl}" alt="${safeFileName}" style="max-width:100%;height:auto;border-radius:6px;margin-top:10px;">
+              </a>
+            </div>
+            <div style="margin-top:6px;">
+              <a href="${fileUrl}" style="color:var(--accent);text-decoration:underline;" target="_blank" rel="noopener noreferrer">🔍 Open</a>
+              &nbsp;·&nbsp;
+              <a href="${fileUrl}" download="${safeFileName}" style="color:var(--accent);text-decoration:underline;">📥 Download</a>
+            </div>
+            ${n.caption ? `<div class="hint-text" style="margin-top:6px;">${escapeHtml(n.caption)}</div>` : ''}
+          `;
+        } else {
+          // Non-image files (PDFs, etc.): a plain link with target="_blank" opens/previews it,
+          // and download="" lets the browser offer a save-as download — both work as native
+          // browser behaviour since this is now a real URL, not a data: URI.
+          fileHtml = `
+            <div>
+              <a href="${fileUrl}" style="color:var(--accent);text-decoration:underline;" target="_blank" rel="noopener noreferrer">🔍 View</a>
+              &nbsp;·&nbsp;
+              <a href="${fileUrl}" download="${safeFileName}" style="color:var(--accent);text-decoration:underline;">📥 ${safeFileName}</a>
+              ${n.caption ? `<div class="hint-text" style="margin-top:6px;">${escapeHtml(n.caption)}</div>` : ''}
+            </div>
+          `;
+        }
+      }
+
+      return `
+        <div class="card news-item">
+          <div class="date">${escapeHtml(n.date)}</div>
+          <h3>${escapeHtml(n.title)}</h3>
+          <p>${escapeHtml(n.body || '')}</p>
+          <div class="news-file-wrap">${fileHtml}</div>
+        </div>
+      `;
+    }).join('');
+  });
+
+  // Basic HTML escaping to avoid injecting stored strings directly into markup.
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+</script>
+
+</body></html>
