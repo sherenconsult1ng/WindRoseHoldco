@@ -17,7 +17,7 @@ backend:
   name: github
   repo: sherenconsult1ng/WindRoseHoldco
   branch: main
-  base_url: https://your-decap-proxy.example.workers.dev
+  base_url: https://wr-decap-proxy.billy-leung.workers.dev
   auth_endpoint: /auth
 
 # Files uploaded through the CMS (PDFs, images) are committed into /uploads
