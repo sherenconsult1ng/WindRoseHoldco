@@ -18,15 +18,6 @@
     "fileName": "hk-regulatory-compliance-newsletter-july-2026-简体中文-.pdf"
   },
   {
-    "id": "2026-08-01-sample-announcement",
-    "title": "Sample Announcement",
-    "date": "2026-08-01",
-    "body": "This is a placeholder news post committed as a real file in the repo. Once the CMS is wired up (see /admin/config.yml), replace or delete this via the Content Manager at /admin — new posts you publish there will appear here automatically, visible to every visitor on every device.",
-    "caption": null,
-    "fileUrl": null,
-    "fileName": null
-  },
-  {
     "id": "2026-07-21-newsletter-june-2026",
     "title": "Newsletter - June 2026",
     "date": "2026-07-22",
