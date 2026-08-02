@@ -24,7 +24,7 @@ backend:
 # at the repo root, so GitHub Pages serves them as normal static files at
 # a real https:// URL — no more localStorage, no more data: URL quirks.
 media_folder: "uploads"
-public_folder: "/uploads"
+public_folder: "/WindRoseHoldco/uploads"
 
 # No visual preview pane needed for this simple content-only site.
 show_preview_links: true
