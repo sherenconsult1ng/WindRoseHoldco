@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - Coming Soon</title>
+    <title>Products - Member Area</title>
     <style>
         * {
             margin: 0;
@@ -45,10 +45,10 @@
             line-height: 1.6;
         }
         
-        .back-button {
+        .action-button {
             display: inline-block;
             padding: 12px 24px;
-            background-color: #333;
+            background-color: #0066cc;
             color: white;
             text-decoration: none;
             border-radius: 4px;
@@ -57,22 +57,37 @@
             transition: background-color 0.3s ease;
             border: none;
             cursor: pointer;
+            margin: 6px;
         }
         
-        .back-button:hover {
-            background-color: #555;
+        .action-button:hover {
+            background-color: #005bb5;
         }
-        
-        .back-button:active {
-            background-color: #222;
+
+        .secondary {
+            background-color: #333;
         }
+
+        .secondary:hover { background-color: #555; }
+
+        .muted-link { display: block; margin-top: 18px; color: #666; font-size: 14px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Coming Soon</h1>
-        <p>Our products are under development and will be launching shortly. Stay tuned!</p>
-        <button class="back-button" onclick="window.history.back()">← Back</button>
+        <h1>Member Area</h1>
+        <p>Members can sign in to access product materials, factsheets and updates. Use the Member Login to sign in—once signed in you will be able to view uploaded materials.</p>
+
+        <!-- Primary: member login page -->
+        <a class="action-button" href="members-admin.html">Member Login →</a>
+
+        <!-- Direct link to the uploaded PDF (opens in a new tab) -->
+        <a class="action-button secondary" href="uploads/CISIAM_Case_Compliance_Advisory_Bilingual.pdf" target="_blank" rel="noopener">View uploaded PDF</a>
+
+        <!-- Back to site -->
+        <a class="action-button" href="index.html">← Back to Site</a>
+
+        <a class="muted-link" href="product.html">(If you are already signed in, the Member Login will show your available downloads.)</a>
     </div>
 </body>
 </html>
