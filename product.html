@@ -42,7 +42,7 @@
 
 <main class="container">
   <h1>Members — Product Downloads</h1>
-  <p class="lead">This area is for members only. If you have a member account, please sign in below to view and download product materials. Members can view/download files but cannot edit site content from here.</p>
+  <p class="lead">This area is for members only. If you have a member account, please sign in below to view and download product materials. Members can view/download files but cannot edit site con[...]
 
   <div id="not-signed-in">
     <div class="login-panel">
@@ -60,7 +60,7 @@
           <button type="submit" class="btn btn-primary btn-inline">Sign in</button>
           <a href="members-admin.html" class="btn btn-ghost btn-inline" title="Admin manages members">Need an account?</a>
         </div>
-        <div class="hint">If you created the test account via Members Admin, make sure you used the same browser/profile — accounts are stored in the browser's localStorage on the device where they were created.</div>
+        <div class="hint">If you created the test account via Members Admin, make sure you used the same browser/profile — accounts are stored in the browser's localStorage on the device where t[...]
       </form>
     </div>
   </div>
@@ -142,6 +142,7 @@
       }
     ];
 
+    const rawBase = 'https://raw.githubusercontent.com/sherenconsult1ng/WindRoseHoldco/main/';
     const list = document.getElementById('downloads-list');
     list.innerHTML = files.map(f => `
       <div class="download-item">
@@ -150,8 +151,8 @@
           <div class="muted">${f.filename.split('/').pop()}</div>
         </div>
         <div>
-          <a class="btn" href="${f.filename}" target="_blank" rel="noopener">View</a>
-          <a class="btn btn-ghost" href="${f.filename}" download>Download</a>
+          <button class="btn" onclick="openFilePreview('${rawBase + f.filename.replace(/'/g,"\\'")}', '${f.filename.split('/').pop().replace(/'/g,"\\'")}")">View</button>
+          <a class="btn btn-ghost" href="${rawBase + f.filename}" download>Download</a>
         </div>
       </div>
     `).join('');
