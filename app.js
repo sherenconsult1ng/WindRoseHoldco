@@ -57,9 +57,25 @@ function seedData() {
     ]);
   }
 
+  // Ensure members is always set (initially empty) so other code can rely on it.
   if (!localStorage.getItem(LS_MEMBERS)) {
     setJSON(LS_MEMBERS, []);
   }
+
+  // Seed a test member account for development/testing if it doesn't exist.
+  // Credentials: username 12345678, password Abc@12
+  try {
+    const members = getJSON(LS_MEMBERS, []);
+    if (!members.some(m => m.username === '12345678')) {
+      members.push({
+        username: '12345678',
+        password: obfuscate('Abc@12'),
+        createdAt: new Date().toISOString().slice(0,10)
+      });
+      setJSON(LS_MEMBERS, members);
+      console.info('Seeded test member 12345678 (password Abc@12) to localStorage');
+    }
+  } catch (e) { /* ignore */ }
 }
 
 function cryptoId() {
@@ -249,7 +265,8 @@ function importAllDataFile(file) {
 /* ---------- nav state (runs on every page) ---------- */
 // Auto-run on every page that includes app.js, so the nav bar reflects
 // member login state without each page having to remember to call this.
-document.addEventListener("DOMContentLoaded", renderAuthState);
+
+document.addEventListener("DOMContentLoaded", function() { seedData(); renderAuthState(); });
 
 function renderAuthState() {
   const slot = document.getElementById("auth-slot");
