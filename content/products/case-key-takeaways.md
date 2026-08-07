@@ -1,0 +1,8 @@
+---
+title: Case Key Takeaways
+description: CISIAM, sole fund manager for Tahoe Life's private fund, committed
+  92% of assets to structured notes linked to bonds of Tahoe Life's affiliate,
+  Tahoe Group. After Tahoe Group's 2020 default, NAV fell 57%. The SFC fined
+  CISIAM HK$6.8 million for inadequate due diligence and risk oversight.
+file: /WindRoseHoldco/uploads/cisiam_case_compliance_advisory_bilingual.pdf
+---
