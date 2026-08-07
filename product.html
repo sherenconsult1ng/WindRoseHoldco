@@ -3,91 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - Member Area</title>
+    <title>Members — Products</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            text-align: center;
-            background-color: white;
-            padding: 60px 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-        }
-        
-        h1 {
-            font-size: 48px;
-            color: #333;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-        
-        p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-        
-        .action-button {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #0066cc;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-            border: none;
-            cursor: pointer;
-            margin: 6px;
-        }
-        
-        .action-button:hover {
-            background-color: #005bb5;
-        }
-
-        .secondary {
-            background-color: #333;
-        }
-
-        .secondary:hover { background-color: #555; }
-
-        .muted-link { display: block; margin-top: 18px; color: #666; font-size: 14px; }
+        .container { max-width: 820px; margin: 48px auto; padding: 28px; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        h1 { margin-bottom: 8px; }
+        .lead { color: #666; margin-bottom: 18px; }
+        .login-panel { max-width: 420px; margin: 18px auto; }
+        .form-row { margin-bottom: 12px; }
+        .btn-inline { display: inline-block; margin-right: 8px; }
+        .downloads-list { margin-top: 18px; }
+        .download-item { padding: 12px; border: 1px solid #eee; border-radius: 6px; margin-bottom: 8px; display:flex; justify-content:space-between; align-items:center; }
+        .muted { color:#666; font-size:0.95rem }
+        .hint { color:#999; font-size:0.85rem; margin-top:6px }
+        .msg { padding:10px 12px; border-radius:6px; margin-bottom:12px; display:none }
+        .msg.show { display:block }
+        .msg.error { background:#FDECEC; color:#862626 }
+        .msg.success { background:#EAF6EE; color:#215c37 }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Member Area</h1>
-        <p>Members can sign in to access product materials, factsheets and updates. Use the Member Login to sign in—once signed in you will be able to view uploaded materials.</p>
 
-        <!-- Primary: member login page -->
-        <a class="action-button" href="members-admin.html">Member Login →</a>
-
-        <!-- Direct link to the uploaded PDF (opens in a new tab) -->
-        <a class="action-button secondary" href="uploads/CISIAM_Case_Compliance_Advisory_Bilingual.pdf" target="_blank" rel="noopener">View uploaded PDF</a>
-
-        <!-- Back to site -->
-        <a class="action-button" href="index.html">← Back to Site</a>
-
-        <a class="muted-link" href="product.html">(If you are already signed in, the Member Login will show your available downloads.)</a>
+<header class="site-header">
+  <div class="nav-row">
+    <div class="brand">
+      <span class="brand-mark">Wind Rose Holding Limited</span>
+      <span class="brand-sub">Est. Hong Kong</span>
     </div>
+    <nav class="nav-links">
+      <a href="index.html">About Us</a>
+      <a href="product.html" class="active">Product</a>
+      <a href="news.html">News</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="nav-auth" id="auth-slot"><a class="btn btn-ghost" href="product.html">Member Login</a></div>
+  </div>
+</header>
+
+<main class="container">
+  <h1>Members — Product Downloads</h1>
+  <p class="lead">This area is for members only. If you have a member account, please sign in below to view and download product materials. Members can view/download files but cannot edit site content from here.</p>
+
+  <div id="not-signed-in">
+    <div class="login-panel">
+      <div id="login-msg" class="msg"></div>
+      <form id="member-login-form">
+        <div class="form-row">
+          <label for="member-username">Username</label>
+          <input id="member-username" type="text" placeholder="8 digits" required>
+        </div>
+        <div class="form-row">
+          <label for="member-password">Password</label>
+          <input id="member-password" type="password" placeholder="6 characters" required>
+        </div>
+        <div class="form-row">
+          <button type="submit" class="btn btn-primary btn-inline">Sign in</button>
+          <a href="members-admin.html" class="btn btn-ghost btn-inline" title="Admin manages members">Need an account?</a>
+        </div>
+        <div class="hint">If you created the test account via Members Admin, make sure you used the same browser/profile — accounts are stored in the browser's localStorage on the device where they were created.</div>
+      </form>
+    </div>
+  </div>
+
+  <div id="signed-in" style="display:none">
+    <div class="msg success show" id="welcome-msg">Welcome</div>
+    <div class="muted">Available downloads</div>
+    <div class="downloads-list" id="downloads-list">
+      <!-- Javascript will populate files here -->
+    </div>
+    <div style="margin-top:18px">
+      <button id="member-logout" class="btn btn-ghost">Log out</button>
+      <a href="index.html" class="btn btn-ghost">Back to site</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    © <span id="year">2026</span> Wind Rose Holding Limited. All rights reserved. ·
+    <a href="contact.html">Contact Us</a>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  // This page uses the site-wide app.js functions for member auth and file preview.
+  document.addEventListener('DOMContentLoaded', () => {
+    const member = currentMember();
+    updateView(member);
+
+    document.getElementById('member-login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = document.getElementById('member-username').value.trim();
+      const pass = document.getElementById('member-password').value;
+      const res = loginMember(user, pass);
+      const msg = document.getElementById('login-msg');
+      if (res.ok) {
+        msg.className = 'msg success show';
+        msg.textContent = '✓ Signed in — loading downloads...';
+        setTimeout(() => {
+          updateView(currentMember());
+        }, 400);
+      } else {
+        msg.className = 'msg error show';
+        msg.textContent = '✗ ' + res.message + ' Use the Members Admin to create or check accounts.';
+      }
+    });
+
+    document.getElementById('member-logout').addEventListener('click', () => {
+      logoutMember();
+      window.location.reload();
+    });
+  });
+
+  function updateView(member) {
+    const signedIn = document.getElementById('signed-in');
+    const notSigned = document.getElementById('not-signed-in');
+    const welcome = document.getElementById('welcome-msg');
+    if (member) {
+      notSigned.style.display = 'none';
+      signedIn.style.display = 'block';
+      welcome.textContent = `Signed in: ${member.username}`;
+      renderDownloads();
+    } else {
+      notSigned.style.display = 'block';
+      signedIn.style.display = 'none';
+    }
+  }
+
+  function renderDownloads() {
+    // Hard-coded list of uploaded files in the repository's /uploads folder.
+    // Add filenames here as needed. Members can view/download but not edit.
+    const files = [
+      {
+        title: 'CISIAM Case — Compliance Advisory (Bilingual)',
+        filename: 'uploads/CISIAM_Case_Compliance_Advisory_Bilingual.pdf'
+      }
+    ];
+
+    const list = document.getElementById('downloads-list');
+    list.innerHTML = files.map(f => `
+      <div class="download-item">
+        <div>
+          <strong>${f.title}</strong>
+          <div class="muted">${f.filename.split('/').pop()}</div>
+        </div>
+        <div>
+          <a class="btn" href="${f.filename}" target="_blank" rel="noopener">View</a>
+          <a class="btn btn-ghost" href="${f.filename}" download>Download</a>
+        </div>
+      </div>
+    `).join('');
+  }
+</script>
+
 </body>
 </html>
